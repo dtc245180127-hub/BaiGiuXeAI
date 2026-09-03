@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-body p-4">
+            <h2 class="mb-3">Hệ thống quản lý bãi giữ xe</h2>
+            <p><strong>Xin chào:</strong> @ViewBag.FullName</p>
+            <p><strong>Vai trò:</strong> @ViewBag.Role</p>
+
+            <a asp-controller="Auth" asp-action="Logout" class="btn btn-danger">Đăng xuất</a>
+        </div>
+    </div>
+</div>

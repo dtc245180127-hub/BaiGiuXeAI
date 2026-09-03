@@ -1,0 +1,62 @@
+﻿@model List<QuanLyBaiXe.Models.User>
+
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+
+<div class="container-fluid">
+    <div class="content-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Quản lý tài khoản</h2>
+            <a asp-action="Create" class="btn btn-primary">+ Thêm tài khoản</a>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Mật khẩu</th>
+                    <th>Vai trò</th>
+                    <th width="160">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int stt = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Username</td>
+                        <td>@item.Password</td>
+                        <td>@item.Role?.RoleName</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Xóa</a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+
+        @if (Model.Count == 0)
+        {
+            <div class="alert alert-info">Chưa có tài khoản nào.</div>
+        }
+    </div>
+</div>

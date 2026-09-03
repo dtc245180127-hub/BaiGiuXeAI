@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Dashboard quản lý";
+}
+
+<div class="page-title">Dashboard quản lý</div>
+
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="dashboard-card stat-card">
+            <h5>Tổng số xe trong bãi</h5>
+            <h2>@ViewBag.TotalVehiclesInParking</h2>
+            <p>Đang gửi hiện tại</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card stat-card">
+            <h5>Vé tháng đang hoạt động</h5>
+            <h2>@ViewBag.TotalMonthlyTicketsActive</h2>
+            <p>Còn hiệu lực</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card stat-card">
+            <h5>Doanh thu hôm nay</h5>
+            <h2>@string.Format("{0:N0} đ", ViewBag.TodayRevenue)</h2>
+            <p>Doanh thu tạm tính</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card stat-card">
+            <h5>Vé sắp hết hạn</h5>
+            <h2>@ViewBag.ExpiringTickets</h2>
+            <p>Trong 7 ngày tới</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-card mt-4">
+    <h4 class="mb-3">Tổng quan quản trị</h4>
+    <p class="text-muted mb-3">
+        Tại đây quản lý có thể theo dõi doanh thu, kiểm tra tình trạng xe trong bãi,
+        giám sát vé tháng, quản lý tài khoản và xem lịch sử thao tác của toàn hệ thống.
+    </p>
+    <a asp-controller="Report" asp-action="Index" class="btn btn-primary">Xem báo cáo chi tiết</a>
+</div>

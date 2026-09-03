@@ -1,0 +1,51 @@
+﻿@model QuanLyBaiXe.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Nhập xe vào";
+}
+
+<div class="container-fluid">
+    <div class="content-card">
+        <h2 class="mb-4">Nhập thông tin xe vào bãi</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="CheckIn" method="post">
+            <div class="mb-3">
+                <label class="form-label">Biển số xe</label>
+                <input asp-for="LicensePlate" class="form-control" />
+                <span asp-validation-for="LicensePlate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Loại xe</label>
+                <select asp-for="VehicleType" class="form-select">
+                    <option value="">-- Chọn loại xe --</option>
+                    <option value="Xe máy">Xe máy</option>
+                    <option value="Ô tô">Ô tô</option>
+                </select>
+                <span asp-validation-for="VehicleType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tên chủ xe</label>
+                <input asp-for="OwnerName" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Số điện thoại</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Lưu và cho xe vào bãi</button>
+            <a asp-action="CurrentVehicles" class="btn btn-secondary">Xem xe đang gửi</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

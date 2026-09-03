@@ -1,0 +1,25 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Build results
+[Bb]in/
+[Oo]bj/
+
+## Visual Studio cache
+.vscode/
+
+## User-specific files
+*.userprefs
+
+## Logs
+*.log
+
+## Environment / secrets
+.env
+.env.*
+!.env.example
+# Application configuration containing local settings/secrets
+appsettings.json
+appsettings.Development.json

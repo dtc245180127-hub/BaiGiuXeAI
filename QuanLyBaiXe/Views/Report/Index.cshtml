@@ -1,0 +1,102 @@
+﻿@model QuanLyBaiXe.ViewModels.ReportViewModel
+
+@{
+    ViewData["Title"] = "Báo cáo doanh thu";
+}
+
+<div class="container-fluid">
+    <h2 class="mb-4">Báo cáo và thống kê</h2>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card dashboard-card p-3">
+                <h5>Doanh thu hôm nay</h5>
+                <h3 class="text-success">@string.Format("{0:N0} đ", Model.TodayRevenue)</h3>
+                <p class="text-muted mb-0">Tính theo xe đã ra bãi</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card dashboard-card p-3">
+                <h5>Tổng doanh thu</h5>
+                <h3 class="text-primary">@string.Format("{0:N0} đ", Model.TotalRevenue)</h3>
+                <p class="text-muted mb-0">Toàn bộ hệ thống</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card dashboard-card p-3">
+                <h5>Xe đang trong bãi</h5>
+                <h3>@Model.TotalVehiclesInParking</h3>
+                <p class="text-muted mb-0">Chưa xử lý xe ra</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card dashboard-card p-3">
+                <h5>Vé tháng còn hạn</h5>
+                <h3>@Model.TotalMonthlyTicketsActive</h3>
+                <p class="text-muted mb-0">Đang hoạt động</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card dashboard-card p-3">
+                <h5>Tổng lượt xe đã lấy</h5>
+                <h3>@Model.TotalCheckedOutVehicles</h3>
+                <p class="text-muted mb-0">Đã hoàn tất thanh toán</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card dashboard-card p-3">
+                <h5>Lượt xử lý mất vé</h5>
+                <h3 class="text-danger">@Model.TotalLostTicketVehicles</h3>
+                <p class="text-muted mb-0">Tính toàn bộ lịch sử</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card dashboard-card p-3">
+                <h5>Tổng trạng thái hoạt động</h5>
+                <h3>@(Model.TotalVehiclesInParking + Model.TotalCheckedOutVehicles)</h3>
+                <p class="text-muted mb-0">Tổng số phiên gửi xe</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card dashboard-card p-4">
+        <h4 class="mb-3">Doanh thu 10 ngày gần nhất</h4>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Ngày</th>
+                    <th>Doanh thu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int stt = 1;
+                }
+                @foreach (var item in Model.RevenueByDates)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                        <td>@string.Format("{0:N0} đ", item.Revenue)</td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+
+        @if (Model.RevenueByDates.Count == 0)
+        {
+            <div class="alert alert-info mb-0">Chưa có dữ liệu doanh thu.</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@model QuanLyBaiXe.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập hệ thống</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-wrapper">
+            <div class="login-left">
+                <h1>Hệ thống quản lý bãi giữ xe</h1>
+                <p>
+                    Nền tảng hỗ trợ quản lý xe ra vào, vé tháng, xử lý mất vé,
+                    theo dõi doanh thu và giám sát toàn bộ hoạt động bãi giữ xe
+                    một cách trực quan và hiệu quả.
+                </p>
+
+                <div class="login-feature">Quản lý xe vào, xe ra nhanh chóng</div>
+                <div class="login-feature">Theo dõi vé tháng và gia hạn dễ dàng</div>
+                <div class="login-feature">Tra cứu lịch sử và báo cáo doanh thu</div>
+            </div>
+
+            <div class="login-right">
+                <div class="login-box-title">Đăng nhập hệ thống</div>
+                <div class="login-box-subtitle">Vui lòng nhập thông tin tài khoản để tiếp tục</div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Error</div>
+                }
+
+                <form asp-action="Login" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Tên đăng nhập</label>
+                        <input asp-for="Username" class="form-control" placeholder="Nhập tên đăng nhập" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Mật khẩu</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                </form>
+
+                <div class="demo-account-box">
+                    <div><strong>Tài khoản demo:</strong></div>
+                    <div>Quản lý: admin / 123456</div>
+                    <div>Nhân viên: nhanvien / 123456</div>
+                    <div>Khách hàng: khachhang / 123456</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

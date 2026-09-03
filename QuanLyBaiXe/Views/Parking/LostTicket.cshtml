@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Xử lý mất vé";
+}
+
+<div class="container-fluid">
+    <div class="card dashboard-card p-4">
+        <h2 class="mb-4">Xử lý mất vé</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="LostTicket" method="post">
+            <div class="mb-3">
+                <label class="form-label">Biển số xe</label>
+                <input type="text" name="licensePlate" class="form-control" placeholder="Nhập biển số xe..." />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ghi chú</label>
+                <textarea name="note" class="form-control" rows="3" placeholder="Nhập ghi chú nếu có..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-danger">Xử lý mất vé</button>
+            <a asp-action="CurrentVehicles" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>

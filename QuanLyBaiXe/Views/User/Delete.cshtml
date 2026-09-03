@@ -1,0 +1,40 @@
+﻿@model QuanLyBaiXe.Models.User
+
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+}
+
+<div class="container-fluid">
+    <div class="card dashboard-card p-4">
+        <h2 class="mb-4 text-danger">Xóa tài khoản</h2>
+
+        <div class="alert alert-warning">
+            Bạn có chắc chắn muốn xóa tài khoản này không?
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Họ tên</th>
+                <td>@Model.FullName</td>
+            </tr>
+            <tr>
+                <th>Tên đăng nhập</th>
+                <td>@Model.Username</td>
+            </tr>
+            <tr>
+                <th>Mật khẩu</th>
+                <td>@Model.Password</td>
+            </tr>
+            <tr>
+                <th>Vai trò</th>
+                <td>@Model.Role?.RoleName</td>
+            </tr>
+        </table>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>

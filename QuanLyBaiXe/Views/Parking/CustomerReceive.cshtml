@@ -1,0 +1,66 @@
+﻿@model List<QuanLyBaiXe.Models.ParkingSession>
+
+@{
+    ViewData["Title"] = "Nhận xe";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="mb-4">Nhận xe</h2>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    Hiện không có xe nào đang gửi.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Biển số xe</th>
+                                <th>Loại xe</th>
+                                <th>Tên chủ xe</th>
+                                <th>Số điện thoại</th>
+                                <th>Giờ vào</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Vehicle?.LicensePlate</td>
+                                    <td>@item.Vehicle?.VehicleType</td>
+                                    <td>@item.Vehicle?.OwnerName</td>
+                                    <td>@item.Vehicle?.PhoneNumber</td>
+                                    <td>@item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                    <td>
+                                        <form asp-action="CustomerCheckOut" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                Nhận xe
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <a asp-controller="Home" asp-action="CustomerDashboard" class="btn btn-secondary mt-3">
+                Quay lại
+            </a>
+        </div>
+    </div>
+</div>

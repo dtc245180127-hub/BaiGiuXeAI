@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Dashboard nhân viên";
+}
+
+<div class="page-title">Dashboard NhanVien</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="dashboard-card stat-card">
+            <h5>Xe vào hôm nay</h5>
+            <h2>@ViewBag.TotalCheckInToday</h2>
+            <p>Tổng lượt gửi</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="dashboard-card stat-card">
+            <h5>Xe ra hôm nay</h5>
+            <h2>@ViewBag.TotalCheckOutToday</h2>
+            <p>Tổng lượt nhận</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="dashboard-card stat-card">
+            <h5>Vé tháng xử lý</h5>
+            <h2>@ViewBag.TotalMonthlyTicketHandled</h2>
+            <p>Tạo mới hoặc gia hạn trong ngày</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-card mt-4">
+    <h4 class="mb-3">Nghiệp vụ nhân viên</h4>
+    <p class="text-muted mb-0">
+        Nhân viên có thể thực hiện gửi xe, xử lý xe ra, tra cứu xe,
+        tạo vé tháng và xử lý mất vé trực tiếp trên hệ thống.
+    </p>
+</div>

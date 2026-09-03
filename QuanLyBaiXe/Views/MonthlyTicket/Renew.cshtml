@@ -1,0 +1,55 @@
+﻿@model QuanLyBaiXe.Models.MonthlyTicket
+
+@{
+    ViewData["Title"] = "Gia hạn vé tháng";
+}
+
+<div class="container-fluid">
+    <div class="card dashboard-card p-4">
+        <h2 class="mb-4">Gia hạn vé tháng</h2>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <table class="table table-bordered mb-4">
+            <tr>
+                <th>Biển số xe</th>
+                <td>@Model.Vehicle?.LicensePlate</td>
+            </tr>
+            <tr>
+                <th>Loại xe</th>
+                <td>@Model.Vehicle?.VehicleType</td>
+            </tr>
+            <tr>
+                <th>Chủ vé</th>
+                <td>@Model.OwnerName</td>
+            </tr>
+            <tr>
+                <th>Ngày bắt đầu</th>
+                <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <th>Ngày hết hạn hiện tại</th>
+                <td>@Model.EndDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <th>Giá hiện tại</th>
+                <td>@string.Format("{0:N0} đ", Model.Price)</td>
+            </tr>
+        </table>
+
+        <form asp-action="Renew" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label class="form-label">Ngày hết hạn mới</label>
+                <input type="date" name="newEndDate" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-warning">Gia hạn</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>

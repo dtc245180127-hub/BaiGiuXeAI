@@ -1,0 +1,71 @@
+﻿@model QuanLyBaiXe.Models.MonthlyTicket
+
+@{
+    ViewData["Title"] = "Đăng ký vé tháng";
+    var vehicles = ViewBag.Vehicles as List<QuanLyBaiXe.Models.Vehicle>;
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="mb-4">Đăng ký vé tháng</h2>
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            <form asp-action="CustomerCreate" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="VehicleId" class="form-label">Chọn xe</label>
+                    <select asp-for="VehicleId" class="form-select">
+                        <option value="">-- Chọn biển số xe --</option>
+                        @if (vehicles != null)
+                        {
+                            foreach (var item in vehicles)
+                            {
+                                <option value="@item.Id">@item.LicensePlate - @item.VehicleType</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="VehicleId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="OwnerName" class="form-label">Tên chủ vé</label>
+                    <input asp-for="OwnerName" class="form-control" placeholder="Nhập tên chủ vé" />
+                    <span asp-validation-for="OwnerName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="StartDate" class="form-label">Ngày bắt đầu</label>
+                    <input asp-for="StartDate" type="date" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EndDate" class="form-label">Ngày hết hạn</label>
+                    <input asp-for="EndDate" type="date" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Đăng ký vé tháng</button>
+                    <a asp-controller="Home" asp-action="CustomerDashboard" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

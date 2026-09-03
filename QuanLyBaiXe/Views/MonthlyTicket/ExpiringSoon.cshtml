@@ -1,0 +1,51 @@
+﻿@model List<QuanLyBaiXe.Models.MonthlyTicket>
+
+@{
+    ViewData["Title"] = "Vé tháng sắp hết hạn";
+}
+
+<div class="container-fluid">
+    <div class="card dashboard-card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Vé tháng sắp hết hạn trong 7 ngày</h2>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Biển số xe</th>
+                    <th>Loại xe</th>
+                    <th>Chủ vé</th>
+                    <th>SĐT</th>
+                    <th>Ngày hết hạn</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int stt = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@item.Vehicle?.LicensePlate</td>
+                        <td>@item.Vehicle?.VehicleType</td>
+                        <td>@item.OwnerName</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                        <td><span class="badge bg-warning text-dark">Sắp hết hạn</span></td>
+                    </tr>
+                    stt++;
+                }
+            </tbody>
+        </table>
+
+        @if (Model.Count == 0)
+        {
+            <div class="alert alert-info">Không có vé nào sắp hết hạn.</div>
+        }
+    </div>
+</div>

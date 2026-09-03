@@ -1,0 +1,63 @@
+﻿@model QuanLyBaiXe.Models.MonthlyTicket
+
+@{
+    ViewData["Title"] = "Gia hạn vé tháng";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h2 class="mb-4">Gia hạn vé tháng</h2>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <table class="table table-bordered mb-4">
+                <tr>
+                    <th style="width: 220px;">Biển số xe</th>
+                    <td>@Model.Vehicle?.LicensePlate</td>
+                </tr>
+                <tr>
+                    <th>Loại xe</th>
+                    <td>@Model.Vehicle?.VehicleType</td>
+                </tr>
+                <tr>
+                    <th>Tên chủ vé</th>
+                    <td>@Model.OwnerName</td>
+                </tr>
+                <tr>
+                    <th>Số điện thoại</th>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <th>Ngày bắt đầu</th>
+                    <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Ngày hết hạn hiện tại</th>
+                    <td>@Model.EndDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Giá hiện tại</th>
+                    <td>@string.Format("{0:N0} đ", Model.Price)</td>
+                </tr>
+            </table>
+
+            <form asp-action="CustomerRenew" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="mb-3">
+                    <label for="newEndDate" class="form-label">Ngày hết hạn mới</label>
+                    <input type="date" name="newEndDate" class="form-control" required />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Gia hạn vé</button>
+                    <a asp-action="CustomerRenewList" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

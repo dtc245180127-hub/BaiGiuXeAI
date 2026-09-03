@@ -1,0 +1,58 @@
+﻿@model QuanLyBaiXe.Models.User
+@using QuanLyBaiXe.Models
+
+@{
+    ViewData["Title"] = "Sửa tài khoản";
+    var roles = ViewBag.Roles as List<Role>;
+}
+
+<div class="container-fluid">
+    <div class="card dashboard-card p-4">
+        <h2 class="mb-4">Sửa tài khoản</h2>
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label">Họ tên</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label">Tên đăng nhập</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Mật khẩu</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="RoleId" class="form-label">Vai trò</label>
+                <select asp-for="RoleId" class="form-select">
+                    <option value="">-- Chọn vai trò --</option>
+                    @if (roles != null)
+                    {
+                        foreach (var role in roles)
+                        {
+                            <option value="@role.Id">@role.RoleName</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Cập nhật</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,48 @@
+﻿@model QuanLyBaiXe.Models.ParkingSession
+
+@{
+    ViewData["Title"] = "Xử lý xe ra";
+}
+
+<div class="container-fluid">
+    <div class="card dashboard-card p-4">
+        <h2 class="mb-4">Thông tin xe ra</h2>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Biển số xe</th>
+                <td>@Model.Vehicle?.LicensePlate</td>
+            </tr>
+            <tr>
+                <th>Loại xe</th>
+                <td>@Model.Vehicle?.VehicleType</td>
+            </tr>
+            <tr>
+                <th>Chủ xe</th>
+                <td>@Model.Vehicle?.OwnerName</td>
+            </tr>
+            <tr>
+                <th>Số điện thoại</th>
+                <td>@Model.Vehicle?.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th>Giờ vào</th>
+                <td>@Model.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
+            </tr>
+            <tr>
+                <th>Giờ ra</th>
+                <td>@Model.CheckOutTime?.ToString("dd/MM/yyyy HH:mm:ss")</td>
+            </tr>
+            <tr>
+                <th>Phí gửi xe</th>
+                <td class="text-danger fw-bold">@string.Format("{0:N0} đ", Model.Fee)</td>
+            </tr>
+            <tr>
+                <th>Trạng thái</th>
+                <td>@Model.Status</td>
+            </tr>
+        </table>
+
+        <a asp-action="CurrentVehicles" class="btn btn-primary">Quay lại danh sách xe đang gửi</a>
+    </div>
+</div>

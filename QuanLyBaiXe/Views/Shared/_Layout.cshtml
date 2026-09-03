@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Quản lý bãi xe</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <div id="ai-chatbot-container">
+        <button id="ai-chatbot-button" type="button">
+            <img src="~/images/chatbot-icon.png" alt="Chatbot" class="ai-chatbot-icon" />
+        </button>
+
+        <div id="ai-chatbot-panel">
+            <div id="ai-chatbot-header">
+                <div>
+                    <strong>Trợ lý AI</strong>
+                    <div class="ai-subtitle">Hỗ trợ tra cứu nhanh</div>
+                </div>
+                <button id="ai-chatbot-close" type="button">×</button>
+            </div>
+
+            <div id="ai-chatbot-messages">
+                <div class="ai-message bot">Xin chào, tôi có thể hỗ trợ gì cho bạn?</div>
+            </div>
+
+            <div id="ai-chatbot-footer">
+                <input id="ai-chatbot-input" type="text" placeholder="Nhập nội dung..." />
+                <button id="ai-chatbot-send" type="button">Gửi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/chatbot.js"></script>
+</head>
+<body>
+    @{
+        var fullName = Context.Session.GetString("FullName");
+        var role = Context.Session.GetString("Role");
+        var username = Context.Session.GetString("Username");
+    }
+
+    @if (!string.IsNullOrEmpty(username))
+    {
+        <div class="sidebar">
+            <div class="brand">Bãi Xe Smart</div>
+
+            @if (role == "QuanLy")
+            {
+                <div class="menu-title">Quản lý</div>
+                <a asp-controller="Home" asp-action="AdminDashboard">Dashboard quản lý</a>
+                <a asp-controller="Report" asp-action="Index">Xem báo cáo doanh thu</a>
+                <a asp-controller="MonthlyTicket" asp-action="ExpiringSoon">Vé tháng sắp hết hạn</a>
+                <a asp-controller="Parking" asp-action="CurrentVehicles">Theo dõi xe trong bãi</a>
+                <a asp-controller="Parking" asp-action="Search">Tra cứu xe</a>
+                <a asp-controller="User" asp-action="Index">Quản lý tài khoản</a>
+                <a asp-controller="ActivityLog" asp-action="Index">Xem lịch sử thao tác</a>
+            }
+            else if (role == "NhanVien")
+            {
+                <div class="menu-title">Nhân viên</div>
+                <a asp-controller="Home" asp-action="StaffDashboard">Dashboard nhân viên</a>
+                <a asp-controller="Parking" asp-action="CheckIn">Nhập thông tin xe vào</a>
+                <a asp-controller="Parking" asp-action="CurrentVehicles">Xe đang gửi trong bãi</a>
+                <a asp-controller="MonthlyTicket" asp-action="Create">Tạo vé tháng</a>
+                <a asp-controller="Parking" asp-action="LostTicket">Xử lý mất vé</a>
+                <a asp-controller="Parking" asp-action="Search">Tra cứu xe</a>
+                <a asp-controller="MonthlyTicket" asp-action="Index">Danh sách vé tháng</a>
+            }
+            else if (role == "KhachHang")
+            {
+                <div class="menu-title">Khách hàng</div>
+                <a asp-controller="Home" asp-action="CustomerDashboard">Dashboard khách hàng</a>
+
+                <a asp-controller="Parking" asp-action="CustomerCheckIn" class="nav-link">Gửi xe</a>
+
+                <a asp-controller="Parking" asp-action="CustomerReceive" class="nav-link">Nhận xe</a>
+
+                <a asp-controller="MonthlyTicket" asp-action="CustomerCreate" class="nav-link">Đăng ký vé tháng</a>
+
+                <a asp-controller="MonthlyTicket" asp-action="CustomerRenewList" class="nav-link">Gia hạn vé tháng</a>
+
+            }
+
+            <div class="menu-title">Hệ thống</div>
+            <a asp-controller="Auth" asp-action="Logout" class="logout-link">Đăng xuất</a>
+        </div>
+
+        <div class="main-content">
+            <div class="topbar">
+                <div class="welcome">
+                    Xin chào, <strong>@fullName</strong>
+                </div>
+                <div>
+                    <span class="role-badge">@role</span>
+                </div>
+            </div>
+
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        @RenderBody()
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
