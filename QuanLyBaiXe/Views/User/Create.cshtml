@@ -6,49 +6,146 @@
     var roles = ViewBag.Roles as List<Role>;
 }
 
-<div class="container-fluid">
-    <div class="card dashboard-card p-4">
-        <h2 class="mb-4">Thêm tài khoản</h2>
+<div class="page-shell">
 
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <div class="content-card">
 
-            <div class="mb-3">
-                <label asp-for="FullName" class="form-label">Họ tên</label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+        <div class="content-card-header">
+
+            <div>
+                <div class="page-kicker">QUẢN TRỊ</div>
+
+                <h2 class="page-title">
+                    Thêm tài khoản
+                </h2>
+
+                <p class="page-description">
+                    Tạo tài khoản mới và thiết lập vai trò cho người dùng.
+                </p>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Username" class="form-label">Tên đăng nhập</label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
+        </div>
 
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label">Mật khẩu</label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+        <div class="content-card-body">
 
-            <div class="mb-3">
-                <label asp-for="RoleId" class="form-label">Vai trò</label>
-                <select asp-for="RoleId" class="form-select">
-                    <option value="">-- Chọn vai trò --</option>
-                    @if (roles != null)
-                    {
-                        foreach (var role in roles)
-                        {
-                            <option value="@role.Id">@role.RoleName</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="RoleId" class="text-danger"></span>
-            </div>
+            <form asp-action="Create" method="post">
 
-            <button type="submit" class="btn btn-primary">Lưu tài khoản</button>
-            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-        </form>
+                <div asp-validation-summary="All"
+                     class="text-danger validation-summary mb-3">
+                </div>
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Thông tin tài khoản
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label asp-for="FullName"
+                                   class="form-label">
+                                Họ tên
+                            </label>
+
+                            <input asp-for="FullName"
+                                   class="form-control"
+                                   placeholder="Nhập họ tên" />
+
+                            <span asp-validation-for="FullName"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="Username"
+                                   class="form-label">
+                                Tên đăng nhập
+                            </label>
+
+                            <input asp-for="Username"
+                                   class="form-control"
+                                   placeholder="Nhập tên đăng nhập" />
+
+                            <span asp-validation-for="Username"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="Password"
+                                   class="form-label">
+                                Mật khẩu
+                            </label>
+
+                            <input asp-for="Password"
+                                   class="form-control"
+                                   placeholder="Nhập mật khẩu" />
+
+                            <span asp-validation-for="Password"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="RoleId"
+                                   class="form-label">
+                                Vai trò
+                            </label>
+
+                            <select asp-for="RoleId"
+                                    class="form-select">
+
+                                <option value="">
+                                    -- Chọn vai trò --
+                                </option>
+
+                                @if (roles != null)
+                                {
+                                    foreach (var role in roles)
+                                    {
+                                        <option value="@role.Id">
+                                            @role.RoleName
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="RoleId"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="action-buttons">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Lưu tài khoản
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary">
+                        Quay lại
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </div>
 

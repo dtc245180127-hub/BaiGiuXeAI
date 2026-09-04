@@ -2,28 +2,96 @@
     ViewData["Title"] = "Xử lý mất vé";
 }
 
-<div class="container-fluid">
-    <div class="card dashboard-card p-4">
-        <h2 class="mb-4">Xử lý mất vé</h2>
+<div class="page-shell">
 
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Error</div>
-        }
+    <div class="content-card">
 
-        <form asp-action="LostTicket" method="post">
-            <div class="mb-3">
-                <label class="form-label">Biển số xe</label>
-                <input type="text" name="licensePlate" class="form-control" placeholder="Nhập biển số xe..." />
+        <div class="content-card-header">
+
+            <div>
+                <div class="page-kicker">QUẢN LÝ XE</div>
+
+                <h2 class="page-title">
+                    Xử lý mất vé
+                </h2>
+
+                <p class="page-description">
+                    Ghi nhận trường hợp khách hàng bị mất vé gửi xe.
+                </p>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Ghi chú</label>
-                <textarea name="note" class="form-control" rows="3" placeholder="Nhập ghi chú nếu có..."></textarea>
-            </div>
+        </div>
 
-            <button type="submit" class="btn btn-danger">Xử lý mất vé</button>
-            <a asp-action="CurrentVehicles" class="btn btn-secondary">Quay lại</a>
-        </form>
+        <div class="content-card-body">
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger soft-alert">
+
+                    <strong>Không thể xử lý</strong>
+
+                    <div>
+                        @ViewBag.Error
+                    </div>
+
+                </div>
+            }
+
+            <form asp-action="LostTicket"
+                  method="post">
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Thông tin xe
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Biển số xe
+                        </label>
+
+                        <input type="text"
+                               name="licensePlate"
+                               class="form-control"
+                               placeholder="Nhập biển số xe..." />
+
+                    </div>
+
+                    <div class="mb-0">
+
+                        <label class="form-label">
+                            Ghi chú
+                        </label>
+
+                        <textarea name="note"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Nhập ghi chú nếu có..."></textarea>
+
+                    </div>
+
+                </div>
+
+                <div class="action-buttons">
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Xử lý mất vé
+                    </button>
+
+                    <a asp-action="CurrentVehicles"
+                       class="btn btn-secondary">
+                        Quay lại
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
+
 </div>

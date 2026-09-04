@@ -1,0 +1,367 @@
+﻿@{
+    ViewData["Title"] = "AI đề xuất nhân sự";
+}
+
+<div class="page-shell">
+
+    <div class="page-header d-flex align-items-center justify-content-between">
+
+    <div>
+        <div class="page-kicker">
+            AI hỗ trợ quản lý
+        </div>
+
+        <h1 class="page-title">
+            AI đề xuất phân bổ nhân sự
+        </h1>
+
+        <p class="page-description">
+            Phân tích lưu lượng xe thực tế để hỗ trợ quản lý bố trí nhân sự.
+        </p>
+    </div>
+
+    <div class="page-header-actions">
+        <button id="btnRecommend"
+                type="button"
+                class="btn btn-primary">
+            Phân tích bằng AI
+        </button>
+    </div>
+
+</div>
+    </div>
+
+
+    <!-- THÔNG TIN HIỆN TẠI -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6">
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Nhân viên hiện có
+                    </div>
+
+                    <div id="availableStaff"
+                         class="fs-2 fw-bold">
+                        --
+                    </div>
+
+                    <small class="text-muted">
+                        Số tài khoản có vai trò Nhân viên
+                    </small>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Xe đang trong bãi
+                    </div>
+
+                    <div id="currentVehicles"
+                         class="fs-2 fw-bold">
+                        --
+                    </div>
+
+                    <small class="text-muted">
+                        Số xe đang có trạng thái gửi
+                    </small>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+    <div id="aiLoading"
+         class="alert alert-info soft-alert d-none">
+
+        <div class="d-flex align-items-center">
+
+            <div class="spinner-border spinner-border-sm me-2"
+                 role="status">
+            </div>
+
+            AI đang phân tích dữ liệu lưu lượng xe...
+
+        </div>
+
+    </div>
+
+
+    <!-- ERROR -->
+    <div id="aiError"
+         class="alert alert-danger soft-alert d-none">
+    </div>
+
+
+    <!-- KẾT QUẢ -->
+    <div id="aiResult"
+         class="d-none">
+
+        <!-- TÓM TẮT -->
+        <div class="content-card mb-4">
+
+            <div class="content-card-header">
+                <strong>Tóm tắt tình hình</strong>
+            </div>
+
+            <div class="content-card-body">
+
+                <p id="aiSummary"
+                   class="mb-0">
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- KHUNG GIỜ CAO ĐIỂM -->
+            <div class="col-lg-6">
+
+                <div class="content-card h-100">
+
+                    <div class="content-card-header">
+                        <strong>Khung giờ cao điểm</strong>
+                    </div>
+
+                    <div class="content-card-body">
+
+                        <ul id="peakHours"
+                            class="mb-0">
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ĐỀ XUẤT -->
+            <div class="col-lg-6">
+
+                <div class="content-card h-100">
+
+                    <div class="content-card-header">
+                        <strong>Đề xuất bố trí nhân sự</strong>
+                    </div>
+
+                    <div class="content-card-body">
+
+                        <ul id="recommendations"
+                            class="mb-0">
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LƯU Ý -->
+        <div class="content-card mt-4">
+
+            <div class="content-card-header">
+                <strong>Lưu ý cho quản lý</strong>
+            </div>
+
+            <div class="content-card-body">
+
+                <ul id="notes"
+                    class="mb-0">
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="alert alert-secondary soft-alert mt-4 mb-0">
+
+            <strong>Lưu ý:</strong>
+            Kết quả trên chỉ mang tính chất hỗ trợ ra quyết định.
+            AI không tự động phân công nhân viên và không thay đổi dữ liệu hệ thống.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+<script>
+    const btnRecommend = document.getElementById("btnRecommend");
+
+    const aiLoading = document.getElementById("aiLoading");
+    const aiError = document.getElementById("aiError");
+    const aiResult = document.getElementById("aiResult");
+
+    const availableStaff = document.getElementById("availableStaff");
+    const currentVehicles = document.getElementById("currentVehicles");
+
+    const aiSummary = document.getElementById("aiSummary");
+    const peakHours = document.getElementById("peakHours");
+    const recommendations = document.getElementById("recommendations");
+    const notes = document.getElementById("notes");
+
+
+    btnRecommend.addEventListener("click", async function () {
+
+        btnRecommend.disabled = true;
+
+        aiLoading.classList.remove("d-none");
+        aiError.classList.add("d-none");
+        aiResult.classList.add("d-none");
+
+        try {
+
+            const response = await fetch(
+                "/StaffingAI/Recommend",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+
+            const data = await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error || "Không thể thực hiện phân tích AI."
+                );
+
+            }
+
+
+            availableStaff.textContent =
+                data.availableStaff ?? 0;
+
+
+            currentVehicles.textContent =
+                data.currentVehicles ?? 0;
+
+
+            aiSummary.textContent =
+                data.summary || "Không có dữ liệu tóm tắt.";
+
+
+            peakHours.innerHTML = "";
+
+
+            if (data.peakHours &&
+                data.peakHours.length > 0) {
+
+                data.peakHours.forEach(function (item) {
+
+                    const li = document.createElement("li");
+
+                    li.textContent = item;
+
+                    peakHours.appendChild(li);
+
+                });
+
+            } else {
+
+                peakHours.innerHTML =
+                    "<li>Chưa xác định được khung giờ cao điểm.</li>";
+
+            }
+
+
+            recommendations.innerHTML = "";
+
+
+            if (data.recommendations &&
+                data.recommendations.length > 0) {
+
+                data.recommendations.forEach(function (item) {
+
+                    const li = document.createElement("li");
+
+                    li.textContent = item;
+
+                    li.classList.add("mb-2");
+
+                    recommendations.appendChild(li);
+
+                });
+
+            } else {
+
+                recommendations.innerHTML =
+                    "<li>Chưa có đề xuất phù hợp.</li>";
+
+            }
+
+
+            notes.innerHTML = "";
+
+
+            if (data.notes &&
+                data.notes.length > 0) {
+
+                data.notes.forEach(function (item) {
+
+                    const li = document.createElement("li");
+
+                    li.textContent = item;
+
+                    li.classList.add("mb-2");
+
+                    notes.appendChild(li);
+
+                });
+
+            } else {
+
+                notes.innerHTML =
+                    "<li>Không có lưu ý bổ sung.</li>";
+
+            }
+
+
+            aiResult.classList.remove("d-none");
+
+        } catch (error) {
+
+            aiError.textContent =
+                error.message ||
+                "Đã xảy ra lỗi khi gọi AI.";
+
+            aiError.classList.remove("d-none");
+
+        } finally {
+
+            aiLoading.classList.add("d-none");
+
+            btnRecommend.disabled = false;
+
+        }
+
+    });
+</script>
+
+}

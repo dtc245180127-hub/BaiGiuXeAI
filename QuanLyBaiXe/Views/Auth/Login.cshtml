@@ -9,62 +9,300 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Đăng nhập hệ thống</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Đăng nhập - Bãi Xe Smart</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
 </head>
-<body>
+
+<body class="login-body">
+
     <div class="login-page">
-        <div class="login-wrapper">
-            <div class="login-left">
-                <h1>Hệ thống quản lý bãi giữ xe</h1>
-                <p>
-                    Nền tảng hỗ trợ quản lý xe ra vào, vé tháng, xử lý mất vé,
-                    theo dõi doanh thu và giám sát toàn bộ hoạt động bãi giữ xe
-                    một cách trực quan và hiệu quả.
-                </p>
 
-                <div class="login-feature">Quản lý xe vào, xe ra nhanh chóng</div>
-                <div class="login-feature">Theo dõi vé tháng và gia hạn dễ dàng</div>
-                <div class="login-feature">Tra cứu lịch sử và báo cáo doanh thu</div>
-            </div>
+        <div class="login-background"></div>
 
-            <div class="login-right">
-                <div class="login-box-title">Đăng nhập hệ thống</div>
-                <div class="login-box-subtitle">Vui lòng nhập thông tin tài khoản để tiếp tục</div>
+        <div class="login-container">
+
+            <!-- GIỚI THIỆU -->
+
+            <section class="login-introduction">
+
+                <div class="login-brand">
+
+                    <div class="login-brand-icon">
+                        
+                    </div>
+
+                    <div>
+                        <div class="login-brand-name">
+                            BÃI XE <span>SMART</span>
+                        </div>
+
+                        <div class="login-brand-subtitle">
+                            HỆ THỐNG QUẢN LÝ BÃI XE
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="login-introduction-content">
+
+                    <div class="login-small-title">
+                        QUẢN LÝ THÔNG MINH
+                    </div>
+
+                    <h1>
+                        Quản lý bãi xe
+                        <br />
+                        <span>đơn giản và hiệu quả</span>
+                    </h1>
+
+                    <p>
+                        Hệ thống hỗ trợ quản lý xe ra vào,
+                        vé tháng, doanh thu và hoạt động
+                        bãi xe trên một nền tảng thống nhất.
+                    </p>
+
+
+                    <div class="login-features">
+
+                        <div class="login-feature">
+
+                            <div class="login-feature-icon">
+                                ✓
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Quản lý xe ra vào
+                                </strong>
+
+                                <span>
+                                    Theo dõi phương tiện nhanh chóng
+                                    và chính xác.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-feature">
+
+                            <div class="login-feature-icon">
+                                ✓
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Quản lý vé tháng
+                                </strong>
+
+                                <span>
+                                    Theo dõi thời hạn và xử lý vé
+                                    thuận tiện.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="login-feature">
+
+                            <div class="login-feature-icon">
+                                ✦
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Tích hợp trợ lý AI
+                                </strong>
+
+                                <span>
+                                    Hỗ trợ phân tích dữ liệu và
+                                    đề xuất cho quản lý.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FORM ĐĂNG NHẬP -->
+
+            <section class="login-card">
+
+                <div class="login-card-header">
+
+                    <div class="login-card-icon">
+                        →
+                    </div>
+
+                    <h2>
+                        Đăng nhập
+                    </h2>
+
+                    <p>
+                        Đăng nhập để tiếp tục sử dụng hệ thống
+                    </p>
+
+                </div>
+
 
                 @if (ViewBag.Error != null)
                 {
-                    <div class="alert alert-danger">@ViewBag.Error</div>
+                    <div class="alert alert-danger login-alert">
+                        @ViewBag.Error
+                    </div>
                 }
 
-                <form asp-action="Login" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">Tên đăng nhập</label>
-                        <input asp-for="Username" class="form-control" placeholder="Nhập tên đăng nhập" />
-                        <span asp-validation-for="Username" class="text-danger"></span>
+
+                <form asp-action="Login"
+                      method="post"
+                      class="login-form">
+
+                    <div class="login-form-group">
+
+                        <label asp-for="Username">
+                            Tên đăng nhập
+                        </label>
+
+                        <div class="login-input-wrapper">
+
+                            <span class="login-input-icon">
+                                ◉
+                            </span>
+
+                            <input asp-for="Username"
+                                   class="form-control"
+                                   placeholder="Nhập tên đăng nhập"
+                                   autocomplete="username" />
+
+                        </div>
+
+                        <span asp-validation-for="Username"
+                              class="text-danger">
+                        </span>
+
                     </div>
 
-                    <div class="mb-4">
-                        <label class="form-label">Mật khẩu</label>
-                        <input asp-for="Password" type="password" class="form-control" placeholder="Nhập mật khẩu" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                    <div class="login-form-group">
+
+                        <label asp-for="Password">
+                            Mật khẩu
+                        </label>
+
+                        <div class="login-input-wrapper">
+
+                            <span class="login-input-icon">
+                                ◆
+                            </span>
+
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control"
+                                   placeholder="Nhập mật khẩu"
+                                   autocomplete="current-password" />
+
+                        </div>
+
+                        <span asp-validation-for="Password"
+                              class="text-danger">
+                        </span>
+
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+
+                    <button type="submit"
+                            class="login-submit">
+
+                        <span>
+                            Đăng nhập
+                        </span>
+
+                        <span class="login-submit-arrow">
+                            →
+                        </span>
+
+                    </button>
+
                 </form>
 
+
+                <!-- TÀI KHOẢN DEMO -->
+
                 <div class="demo-account-box">
-                    <div><strong>Tài khoản demo:</strong></div>
-                    <div>Quản lý: admin / 123456</div>
-                    <div>Nhân viên: nhanvien / 123456</div>
-                    <div>Khách hàng: khachhang / 123456</div>
+
+                    <div class="demo-title">
+                        Tài khoản demo
+                    </div>
+
+
+                    <div class="demo-account">
+
+                        <span class="demo-role">
+                            Quản lý
+                        </span>
+
+                        <span>
+                            admin / 123456
+                        </span>
+
+                    </div>
+
+
+                    <div class="demo-account">
+
+                        <span class="demo-role">
+                            Nhân viên
+                        </span>
+
+                        <span>
+                            nhanvien / 123456
+                        </span>
+
+                    </div>
+
+
+                    <div class="demo-account">
+
+                        <span class="demo-role">
+                            Khách hàng
+                        </span>
+
+                        <span>
+                            khachhang / 123456
+                        </span>
+
+                    </div>
+
                 </div>
-            </div>
+
+
+                <div class="login-footer">
+                    Bãi Xe Smart · Hệ thống quản lý bãi xe tích hợp AI
+                </div>
+
+            </section>
+
         </div>
+
     </div>
 
+
     <partial name="_ValidationScriptsPartial" />
+
 </body>
 </html>

@@ -4,99 +4,524 @@
     ViewData["Title"] = "Báo cáo doanh thu";
 }
 
-<div class="container-fluid">
-    <h2 class="mb-4">Báo cáo và thống kê</h2>
+<div class="page-shell">
+
+    <div class="page-header">
+        <div>
+            <div class="page-kicker">Thống kê hệ thống</div>
+
+            <h1 class="page-title">
+                Báo cáo và thống kê
+            </h1>
+
+            <p class="page-description">
+                Theo dõi doanh thu và tình hình hoạt động của bãi xe.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- ==================== THỐNG KÊ TỔNG QUAN ==================== -->
 
     <div class="row g-4 mb-4">
+
         <div class="col-md-3">
-            <div class="card dashboard-card p-3">
-                <h5>Doanh thu hôm nay</h5>
-                <h3 class="text-success">@string.Format("{0:N0} đ", Model.TodayRevenue)</h3>
-                <p class="text-muted mb-0">Tính theo xe đã ra bãi</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Doanh thu hôm nay
+                    </div>
+
+                    <h3 class="text-success mb-1">
+                        @string.Format("{0:N0} đ", Model.TodayRevenue)
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Tính theo xe đã ra bãi
+                    </p>
+
+                </div>
             </div>
         </div>
 
+
         <div class="col-md-3">
-            <div class="card dashboard-card p-3">
-                <h5>Tổng doanh thu</h5>
-                <h3 class="text-primary">@string.Format("{0:N0} đ", Model.TotalRevenue)</h3>
-                <p class="text-muted mb-0">Toàn bộ hệ thống</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Tổng doanh thu
+                    </div>
+
+                    <h3 class="text-primary mb-1">
+                        @string.Format("{0:N0} đ", Model.TotalRevenue)
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Toàn bộ hệ thống
+                    </p>
+
+                </div>
             </div>
         </div>
 
+
         <div class="col-md-3">
-            <div class="card dashboard-card p-3">
-                <h5>Xe đang trong bãi</h5>
-                <h3>@Model.TotalVehiclesInParking</h3>
-                <p class="text-muted mb-0">Chưa xử lý xe ra</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Xe đang trong bãi
+                    </div>
+
+                    <h3 class="mb-1">
+                        @Model.TotalVehiclesInParking
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Chưa xử lý xe ra
+                    </p>
+
+                </div>
             </div>
         </div>
 
+
         <div class="col-md-3">
-            <div class="card dashboard-card p-3">
-                <h5>Vé tháng còn hạn</h5>
-                <h3>@Model.TotalMonthlyTicketsActive</h3>
-                <p class="text-muted mb-0">Đang hoạt động</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Vé tháng còn hạn
+                    </div>
+
+                    <h3 class="mb-1">
+                        @Model.TotalMonthlyTicketsActive
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Đang hoạt động
+                    </p>
+
+                </div>
             </div>
         </div>
+
     </div>
+
 
     <div class="row g-4 mb-4">
+
         <div class="col-md-4">
-            <div class="card dashboard-card p-3">
-                <h5>Tổng lượt xe đã lấy</h5>
-                <h3>@Model.TotalCheckedOutVehicles</h3>
-                <p class="text-muted mb-0">Đã hoàn tất thanh toán</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Tổng lượt xe đã lấy
+                    </div>
+
+                    <h3 class="mb-1">
+                        @Model.TotalCheckedOutVehicles
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Đã hoàn tất thanh toán
+                    </p>
+
+                </div>
             </div>
         </div>
 
+
         <div class="col-md-4">
-            <div class="card dashboard-card p-3">
-                <h5>Lượt xử lý mất vé</h5>
-                <h3 class="text-danger">@Model.TotalLostTicketVehicles</h3>
-                <p class="text-muted mb-0">Tính toàn bộ lịch sử</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Lượt xử lý mất vé
+                    </div>
+
+                    <h3 class="text-danger mb-1">
+                        @Model.TotalLostTicketVehicles
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Tính toàn bộ lịch sử
+                    </p>
+
+                </div>
             </div>
         </div>
 
+
         <div class="col-md-4">
-            <div class="card dashboard-card p-3">
-                <h5>Tổng trạng thái hoạt động</h5>
-                <h3>@(Model.TotalVehiclesInParking + Model.TotalCheckedOutVehicles)</h3>
-                <p class="text-muted mb-0">Tổng số phiên gửi xe</p>
+            <div class="content-card h-100">
+                <div class="content-card-body">
+
+                    <div class="text-muted mb-2">
+                        Tổng trạng thái hoạt động
+                    </div>
+
+                    <h3 class="mb-1">
+                        @(Model.TotalVehiclesInParking + Model.TotalCheckedOutVehicles)
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Tổng số phiên gửi xe
+                    </p>
+
+                </div>
             </div>
         </div>
+
     </div>
 
-    <div class="card dashboard-card p-4">
-        <h4 class="mb-3">Doanh thu 10 ngày gần nhất</h4>
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>STT</th>
-                    <th>Ngày</th>
-                    <th>Doanh thu</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int stt = 1;
-                }
-                @foreach (var item in Model.RevenueByDates)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@item.Date.ToString("dd/MM/yyyy")</td>
-                        <td>@string.Format("{0:N0} đ", item.Revenue)</td>
-                    </tr>
-                    stt++;
-                }
-            </tbody>
-        </table>
+    <!-- ==================== BÁO CÁO DOANH THU ==================== -->
 
-        @if (Model.RevenueByDates.Count == 0)
-        {
-            <div class="alert alert-info mb-0">Chưa có dữ liệu doanh thu.</div>
-        }
+    <div class="content-card mb-4">
+
+        <div class="content-card-header">
+            <div>
+                <strong>Doanh thu 10 ngày gần nhất</strong>
+
+                <div class="text-muted small mt-1">
+                    Thống kê doanh thu theo từng ngày
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content-card-body">
+
+            @if (Model.RevenueByDates.Count == 0)
+            {
+                <div class="soft-alert alert alert-info mb-0">
+                    Chưa có dữ liệu doanh thu.
+                </div>
+            }
+            else
+            {
+                <div class="table-wrapper">
+                    <div class="table-responsive">
+
+                        <table class="table data-table align-middle mb-0">
+
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Ngày</th>
+                                    <th>Doanh thu</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @{
+                                    int stt = 1;
+                                }
+
+                                @foreach (var item in Model.RevenueByDates)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <span class="fw-semibold">
+                                                @stt
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            @item.Date.ToString("dd/MM/yyyy")
+                                        </td>
+
+                                        <td>
+                                            <span class="fw-semibold">
+                                                @string.Format("{0:N0} đ", item.Revenue)
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                    stt++;
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+
     </div>
+
+
+    <!-- ==================== PHÂN TÍCH AI ==================== -->
+
+    <div class="content-card mb-4">
+
+        <div class="content-card-header">
+
+            <div>
+                <strong>Phân tích dữ liệu bằng AI</strong>
+
+                <div class="text-muted small mt-1">
+                    AI hỗ trợ quản lý phân tích tình hình hoạt động
+                    của bãi xe dựa trên dữ liệu thống kê.
+                </div>
+            </div>
+
+            <button type="button"
+                    id="btnAnalyzeAI"
+                    class="btn btn-primary">
+                Phân tích bằng AI
+            </button>
+
+        </div>
+
+
+        <div class="content-card-body">
+
+            <!-- ĐANG XỬ LÝ -->
+
+            <div id="aiLoading"
+                 class="alert alert-info soft-alert d-none">
+
+                <span class="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"></span>
+
+                AI đang phân tích dữ liệu, vui lòng chờ...
+
+            </div>
+
+
+            <!-- LỖI -->
+
+            <div id="aiError"
+                 class="alert alert-danger soft-alert d-none">
+            </div>
+
+
+            <!-- KẾT QUẢ -->
+
+            <div id="aiResult"
+                 class="d-none">
+
+                <!-- TÓM TẮT -->
+
+                <div class="form-section mb-4">
+
+                    <div class="form-section-title">
+                        Tóm tắt
+                    </div>
+
+                    <div id="aiSummary"
+                         class="soft-alert alert alert-light mb-0">
+                    </div>
+
+                </div>
+
+
+                <!-- ĐIỂM ĐÁNG CHÚ Ý -->
+
+                <div class="form-section mb-4">
+
+                    <div class="form-section-title">
+                        Các điểm đáng chú ý
+                    </div>
+
+                    <ul id="aiInsights"
+                        class="mb-0">
+                    </ul>
+
+                </div>
+
+
+                <!-- ĐỀ XUẤT -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Đề xuất
+                    </div>
+
+                    <ul id="aiRecommendations"
+                        class="mb-0">
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+
+<!-- ==================== JAVASCRIPT PHÂN TÍCH AI ==================== -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const btnAnalyzeAI =
+            document.getElementById("btnAnalyzeAI");
+
+        const aiLoading =
+            document.getElementById("aiLoading");
+
+        const aiError =
+            document.getElementById("aiError");
+
+        const aiResult =
+            document.getElementById("aiResult");
+
+        const aiSummary =
+            document.getElementById("aiSummary");
+
+        const aiInsights =
+            document.getElementById("aiInsights");
+
+        const aiRecommendations =
+            document.getElementById("aiRecommendations");
+
+
+        btnAnalyzeAI.addEventListener("click", async function () {
+
+            aiError.classList.add("d-none");
+
+            aiResult.classList.add("d-none");
+
+            aiLoading.classList.remove("d-none");
+
+            btnAnalyzeAI.disabled = true;
+
+            btnAnalyzeAI.innerText =
+                "Đang phân tích...";
+
+
+            try {
+
+                const response =
+                    await fetch("/Report/AnalyzeAI", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    let errorMessage =
+                        data.error ||
+                        "Không thể thực hiện phân tích AI.";
+
+                    if (data.detail) {
+                        errorMessage +=
+                            " " + data.detail;
+                    }
+
+                    throw new Error(errorMessage);
+                }
+
+
+                aiSummary.innerText =
+                    data.summary ||
+                    "Chưa có nội dung tóm tắt.";
+
+
+                aiInsights.innerHTML = "";
+
+                aiRecommendations.innerHTML = "";
+
+
+                if (Array.isArray(data.insights) &&
+                    data.insights.length > 0) {
+
+                    data.insights.forEach(function (item) {
+
+                        const li =
+                            document.createElement("li");
+
+                        li.innerText = item;
+
+                        aiInsights.appendChild(li);
+
+                    });
+
+                }
+                else {
+
+                    const li =
+                        document.createElement("li");
+
+                    li.innerText =
+                        "Chưa có điểm đáng chú ý.";
+
+                    aiInsights.appendChild(li);
+                }
+
+
+                if (Array.isArray(data.recommendations) &&
+                    data.recommendations.length > 0) {
+
+                    data.recommendations.forEach(function (item) {
+
+                        const li =
+                            document.createElement("li");
+
+                        li.innerText = item;
+
+                        aiRecommendations.appendChild(li);
+
+                    });
+
+                }
+                else {
+
+                    const li =
+                        document.createElement("li");
+
+                    li.innerText =
+                        "Chưa có đề xuất.";
+
+                    aiRecommendations.appendChild(li);
+                }
+
+
+                aiResult.classList.remove("d-none");
+
+            }
+            catch (error) {
+
+                aiError.innerText =
+                    error.message ||
+                    "Không thể thực hiện phân tích AI.";
+
+                aiError.classList.remove("d-none");
+            }
+            finally {
+
+                aiLoading.classList.add("d-none");
+
+                btnAnalyzeAI.disabled = false;
+
+                btnAnalyzeAI.innerText =
+                    "Phân tích bằng AI";
+            }
+
+        });
+
+    });
+</script>

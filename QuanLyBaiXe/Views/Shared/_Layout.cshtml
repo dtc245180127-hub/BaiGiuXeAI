@@ -1,112 +1,415 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿
+@using Microsoft.AspNetCore.Http
+
+@{
+    var fullName = Context.Session.GetString("FullName");
+    var role = Context.Session.GetString("Role");
+    var username = Context.Session.GetString("Username");
+    var chatSessionId = Context.Session.GetString("ChatSessionId");
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Quản lý bãi xe</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <title>@ViewData["Title"] - Bãi Xe Smart</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+
+@if (!string.IsNullOrEmpty(username))
+{
+    <div class="app-background"></div>
+
+    <div class="app-shell">
+
+        <!-- ========================= -->
+        <!-- SIDEBAR -->
+        <!-- ========================= -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-brand">
+
+                <div class="brand-icon">
+                    P
+                </div>
+
+                <div class="brand-text">
+                    <div class="brand-name">
+                        BÃI XE <span>SMART</span>
+                    </div>
+
+                    <div class="brand-subtitle">
+                        HỆ THỐNG QUẢN LÝ BÃI XE
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="sidebar-menu">
+
+                @if (role == "QuanLy")
+                {
+                    <div class="menu-section-title">
+                        QUẢN LÝ
+                    </div>
+
+                    <a asp-controller="Home"
+                       asp-action="AdminDashboard"
+                       class="menu-item @(currentController == "Home" && currentAction == "AdminDashboard" ? "active" : "")">
+
+                        <span class="menu-icon">⌂</span>
+                        <span>Dashboard</span>
+
+                    </a>
+
+                    <a asp-controller="Report"
+                       asp-action="Index"
+                       class="menu-item @(currentController == "Report" ? "active" : "")">
+
+                        <span class="menu-icon">▥</span>
+                        <span>Báo cáo doanh thu</span>
+
+                    </a>
+
+                    <a asp-controller="StaffingAI"
+                       asp-action="Index"
+                       class="menu-item @(currentController == "StaffingAI" ? "active" : "")">
+
+                        <span class="menu-icon">✦</span>
+                        <span>AI đề xuất nhân sự</span>
+
+                    </a>
+
+                    <a asp-controller="MonthlyTicket"
+                       asp-action="ExpiringSoon"
+                       class="menu-item">
+
+                        <span class="menu-icon">▣</span>
+                        <span>Vé tháng sắp hết hạn</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="CurrentVehicles"
+                       class="menu-item">
+
+                        <span class="menu-icon">▱</span>
+                        <span>Theo dõi xe trong bãi</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="Search"
+                       class="menu-item">
+
+                        <span class="menu-icon">⌕</span>
+                        <span>Tra cứu xe</span>
+
+                    </a>
+
+                    <a asp-controller="User"
+                       asp-action="Index"
+                       class="menu-item @(currentController == "User" ? "active" : "")">
+
+                        <span class="menu-icon">♙</span>
+                        <span>Quản lý tài khoản</span>
+
+                    </a>
+
+                    <a asp-controller="ActivityLog"
+                       asp-action="Index"
+                       class="menu-item @(currentController == "ActivityLog" ? "active" : "")">
+
+                        <span class="menu-icon">◷</span>
+                        <span>Lịch sử thao tác</span>
+
+                    </a>
+                }
+                else if (role == "NhanVien")
+                {
+                    <div class="menu-section-title">
+                        NHÂN VIÊN
+                    </div>
+
+                    <a asp-controller="Home"
+                       asp-action="StaffDashboard"
+                       class="menu-item @(currentController == "Home" && currentAction == "StaffDashboard" ? "active" : "")">
+
+                        <span class="menu-icon">⌂</span>
+                        <span>Dashboard</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="CheckIn"
+                       class="menu-item">
+
+                        <span class="menu-icon">▱</span>
+                        <span>Nhập thông tin xe vào</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="CurrentVehicles"
+                       class="menu-item">
+
+                        <span class="menu-icon">▣</span>
+                        <span>Xe đang gửi trong bãi</span>
+
+                    </a>
+
+                    <a asp-controller="MonthlyTicket"
+                       asp-action="Create"
+                       class="menu-item">
+
+                        <span class="menu-icon">▤</span>
+                        <span>Tạo vé tháng</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="LostTicket"
+                       class="menu-item">
+
+                        <span class="menu-icon">!</span>
+                        <span>Xử lý mất vé</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="Search"
+                       class="menu-item">
+
+                        <span class="menu-icon">⌕</span>
+                        <span>Tra cứu xe</span>
+
+                    </a>
+
+                    <a asp-controller="MonthlyTicket"
+                       asp-action="Index"
+                       class="menu-item">
+
+                        <span class="menu-icon">▣</span>
+                        <span>Danh sách vé tháng</span>
+
+                    </a>
+                }
+                else if (role == "KhachHang")
+                {
+                    <div class="menu-section-title">
+                        KHÁCH HÀNG
+                    </div>
+
+                    <a asp-controller="Home"
+                       asp-action="CustomerDashboard"
+                       class="menu-item @(currentController == "Home" && currentAction == "CustomerDashboard" ? "active" : "")">
+
+                        <span class="menu-icon">⌂</span>
+                        <span>Dashboard</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="CustomerCheckIn"
+                       class="menu-item">
+
+                        <span class="menu-icon">▱</span>
+                        <span>Gửi xe</span>
+
+                    </a>
+
+                    <a asp-controller="Parking"
+                       asp-action="CustomerReceive"
+                       class="menu-item">
+
+                        <span class="menu-icon">▰</span>
+                        <span>Nhận xe</span>
+
+                    </a>
+
+                    <a asp-controller="MonthlyTicket"
+                       asp-action="CustomerCreate"
+                       class="menu-item">
+
+                        <span class="menu-icon">▤</span>
+                        <span>Đăng ký vé tháng</span>
+
+                    </a>
+
+                    <a asp-controller="MonthlyTicket"
+                       asp-action="CustomerRenewList"
+                       class="menu-item">
+
+                        <span class="menu-icon">↻</span>
+                        <span>Gia hạn vé tháng</span>
+
+                    </a>
+                }
+
+            </div>
+
+            <!-- SYSTEM -->
+            <div class="sidebar-bottom">
+
+                <div class="menu-section-title">
+                    HỆ THỐNG
+                </div>
+
+                <a asp-controller="Auth"
+                   asp-action="Logout"
+                   class="menu-item logout-item">
+
+                    <span class="menu-icon">↪</span>
+                    <span>Đăng xuất</span>
+
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ========================= -->
+        <!-- MAIN -->
+        <!-- ========================= -->
+
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <button type="button"
+                        class="mobile-menu-button"
+                        onclick="document.body.classList.toggle('sidebar-open')">
+
+                    ☰
+
+                </button>
+
+                <div class="topbar-spacer"></div>
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        @(
+                            string.IsNullOrEmpty(fullName)
+                                ? "U"
+                                : fullName.Substring(0, 1).ToUpper()
+                        )
+                    </div>
+
+                    <div class="user-info">
+
+                        <div class="user-name">
+                            @fullName
+                        </div>
+
+                        <div class="user-role">
+                            @role
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE CONTENT -->
+
+            <section class="page-content">
+
+                @RenderBody()
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- CHATBOT AI -->
+    <!-- ========================= -->
+
     <div id="ai-chatbot-container">
-        <button id="ai-chatbot-button" type="button">
-            <img src="~/images/chatbot-icon.png" alt="Chatbot" class="ai-chatbot-icon" />
+
+        <button id="ai-chatbot-button"
+                type="button"
+                aria-label="Mở trợ lý AI">
+
+            <img src="~/images/chatbot-icon.png"
+                 alt="Chatbot"
+                 class="ai-chatbot-icon" />
+
         </button>
 
-        <div id="ai-chatbot-panel">
+        <div id="ai-chatbot-panel"
+             data-role="@role"
+             data-name="@username"
+             data-session-id="@chatSessionId">
+
             <div id="ai-chatbot-header">
+
                 <div>
                     <strong>Trợ lý AI</strong>
-                    <div class="ai-subtitle">Hỗ trợ tra cứu nhanh</div>
+
+                    <div class="ai-subtitle">
+                        Hỗ trợ tra cứu nhanh
+                    </div>
                 </div>
-                <button id="ai-chatbot-close" type="button">×</button>
+
+                <button id="ai-chatbot-close"
+                        type="button">
+                    ×
+                </button>
+
             </div>
 
             <div id="ai-chatbot-messages">
-                <div class="ai-message bot">Xin chào, tôi có thể hỗ trợ gì cho bạn?</div>
             </div>
 
             <div id="ai-chatbot-footer">
-                <input id="ai-chatbot-input" type="text" placeholder="Nhập nội dung..." />
-                <button id="ai-chatbot-send" type="button">Gửi</button>
+
+                <input id="ai-chatbot-input"
+                       type="text"
+                       placeholder="Nhập nội dung..." />
+
+                <button id="ai-chatbot-send"
+                        type="button">
+                    Gửi
+                </button>
+
             </div>
+
         </div>
+
     </div>
+}
 
-    <script src="~/js/chatbot.js"></script>
-</head>
-<body>
-    @{
-        var fullName = Context.Session.GetString("FullName");
-        var role = Context.Session.GetString("Role");
-        var username = Context.Session.GetString("Username");
-    }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-    @if (!string.IsNullOrEmpty(username))
-    {
-        <div class="sidebar">
-            <div class="brand">Bãi Xe Smart</div>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-            @if (role == "QuanLy")
-            {
-                <div class="menu-title">Quản lý</div>
-                <a asp-controller="Home" asp-action="AdminDashboard">Dashboard quản lý</a>
-                <a asp-controller="Report" asp-action="Index">Xem báo cáo doanh thu</a>
-                <a asp-controller="MonthlyTicket" asp-action="ExpiringSoon">Vé tháng sắp hết hạn</a>
-                <a asp-controller="Parking" asp-action="CurrentVehicles">Theo dõi xe trong bãi</a>
-                <a asp-controller="Parking" asp-action="Search">Tra cứu xe</a>
-                <a asp-controller="User" asp-action="Index">Quản lý tài khoản</a>
-                <a asp-controller="ActivityLog" asp-action="Index">Xem lịch sử thao tác</a>
-            }
-            else if (role == "NhanVien")
-            {
-                <div class="menu-title">Nhân viên</div>
-                <a asp-controller="Home" asp-action="StaffDashboard">Dashboard nhân viên</a>
-                <a asp-controller="Parking" asp-action="CheckIn">Nhập thông tin xe vào</a>
-                <a asp-controller="Parking" asp-action="CurrentVehicles">Xe đang gửi trong bãi</a>
-                <a asp-controller="MonthlyTicket" asp-action="Create">Tạo vé tháng</a>
-                <a asp-controller="Parking" asp-action="LostTicket">Xử lý mất vé</a>
-                <a asp-controller="Parking" asp-action="Search">Tra cứu xe</a>
-                <a asp-controller="MonthlyTicket" asp-action="Index">Danh sách vé tháng</a>
-            }
-            else if (role == "KhachHang")
-            {
-                <div class="menu-title">Khách hàng</div>
-                <a asp-controller="Home" asp-action="CustomerDashboard">Dashboard khách hàng</a>
+<script src="~/js/chatbot.js"
+        asp-append-version="true"></script>
 
-                <a asp-controller="Parking" asp-action="CustomerCheckIn" class="nav-link">Gửi xe</a>
+@await RenderSectionAsync("Scripts", required: false)
 
-                <a asp-controller="Parking" asp-action="CustomerReceive" class="nav-link">Nhận xe</a>
-
-                <a asp-controller="MonthlyTicket" asp-action="CustomerCreate" class="nav-link">Đăng ký vé tháng</a>
-
-                <a asp-controller="MonthlyTicket" asp-action="CustomerRenewList" class="nav-link">Gia hạn vé tháng</a>
-
-            }
-
-            <div class="menu-title">Hệ thống</div>
-            <a asp-controller="Auth" asp-action="Logout" class="logout-link">Đăng xuất</a>
-        </div>
-
-        <div class="main-content">
-            <div class="topbar">
-                <div class="welcome">
-                    Xin chào, <strong>@fullName</strong>
-                </div>
-                <div>
-                    <span class="role-badge">@role</span>
-                </div>
-            </div>
-
-            @RenderBody()
-        </div>
-    }
-    else
-    {
-        @RenderBody()
-    }
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

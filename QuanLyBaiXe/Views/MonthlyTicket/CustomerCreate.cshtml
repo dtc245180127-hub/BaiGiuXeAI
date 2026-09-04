@@ -5,63 +5,167 @@
     var vehicles = ViewBag.Vehicles as List<QuanLyBaiXe.Models.Vehicle>;
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <h2 class="mb-4">Đăng ký vé tháng</h2>
+<div class="page-shell">
+    <div class="content-card">
+
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">KHÁCH HÀNG</div>
+
+                <h2 class="page-title">
+                    Đăng ký vé tháng
+                </h2>
+
+                <p class="page-description">
+                    Đăng ký vé tháng cho phương tiện của bạn.
+                </p>
+            </div>
+        </div>
+
+        <div class="content-card-body">
 
             @if (TempData["Success"] != null)
             {
-                <div class="alert alert-success">@TempData["Success"]</div>
+                <div class="alert alert-success soft-alert">
+                    <strong>Đăng ký thành công</strong>
+                    <div>@TempData["Success"]</div>
+                </div>
             }
 
             <form asp-action="CustomerCreate" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                <div class="mb-3">
-                    <label asp-for="VehicleId" class="form-label">Chọn xe</label>
-                    <select asp-for="VehicleId" class="form-select">
-                        <option value="">-- Chọn biển số xe --</option>
-                        @if (vehicles != null)
-                        {
-                            foreach (var item in vehicles)
-                            {
-                                <option value="@item.Id">@item.LicensePlate - @item.VehicleType</option>
-                            }
-                        }
-                    </select>
-                    <span asp-validation-for="VehicleId" class="text-danger"></span>
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger validation-summary mb-3">
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="OwnerName" class="form-label">Tên chủ vé</label>
-                    <input asp-for="OwnerName" class="form-control" placeholder="Nhập tên chủ vé" />
-                    <span asp-validation-for="OwnerName" class="text-danger"></span>
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Thông tin đăng ký
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-12">
+
+                            <label asp-for="VehicleId"
+                                   class="form-label">
+                                Chọn xe
+                            </label>
+
+                            <select asp-for="VehicleId"
+                                    class="form-select">
+
+                                <option value="">
+                                    -- Chọn biển số xe --
+                                </option>
+
+                                @if (vehicles != null)
+                                {
+                                    foreach (var item in vehicles)
+                                    {
+                                        <option value="@item.Id">
+                                            @item.LicensePlate - @item.VehicleType
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="VehicleId"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="OwnerName"
+                                   class="form-label">
+                                Tên chủ vé
+                            </label>
+
+                            <input asp-for="OwnerName"
+                                   class="form-control"
+                                   placeholder="Nhập tên chủ vé" />
+
+                            <span asp-validation-for="OwnerName"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="PhoneNumber"
+                                   class="form-label">
+                                Số điện thoại
+                            </label>
+
+                            <input asp-for="PhoneNumber"
+                                   class="form-control"
+                                   placeholder="Nhập số điện thoại" />
+
+                            <span asp-validation-for="PhoneNumber"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="StartDate"
+                                   class="form-label">
+                                Ngày bắt đầu
+                            </label>
+
+                            <input asp-for="StartDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="StartDate"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="EndDate"
+                                   class="form-label">
+                                Ngày hết hạn
+                            </label>
+
+                            <input asp-for="EndDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="EndDate"
+                                  class="text-danger field-validation">
+                            </span>
+
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
-                    <input asp-for="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <div class="action-buttons">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Đăng ký vé tháng
+                    </button>
+
+                    <a asp-controller="Home"
+                       asp-action="CustomerDashboard"
+                       class="btn btn-secondary">
+                        Quay lại
+                    </a>
+
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="StartDate" class="form-label">Ngày bắt đầu</label>
-                    <input asp-for="StartDate" type="date" class="form-control" />
-                    <span asp-validation-for="StartDate" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="EndDate" class="form-label">Ngày hết hạn</label>
-                    <input asp-for="EndDate" type="date" class="form-control" />
-                    <span asp-validation-for="EndDate" class="text-danger"></span>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">Đăng ký vé tháng</button>
-                    <a asp-controller="Home" asp-action="CustomerDashboard" class="btn btn-secondary">Quay lại</a>
-                </div>
             </form>
+
         </div>
     </div>
 </div>

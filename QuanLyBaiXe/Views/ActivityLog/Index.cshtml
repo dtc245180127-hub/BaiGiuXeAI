@@ -4,47 +4,129 @@
     ViewData["Title"] = "Lịch sử thao tác";
 }
 
-<div class="container-fluid">
+<div class="page-shell">
+
+    <div class="page-header">
+        <div>
+            <div class="page-kicker">Hệ thống</div>
+
+            <h1 class="page-title">
+                Lịch sử thao tác
+            </h1>
+
+            <p class="page-description">
+                Theo dõi lịch sử các thao tác đã được thực hiện trong hệ thống.
+            </p>
+        </div>
+    </div>
+
+
     <div class="content-card">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Lịch sử thao tác hệ thống</h2>
+
+        <div class="content-card-header">
+            <div>
+                <strong>Lịch sử thao tác hệ thống</strong>
+                <div class="text-muted small mt-1">
+                    Danh sách các hoạt động của người dùng
+                </div>
+            </div>
         </div>
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>STT</th>
-                    <th>Thời gian</th>
-                    <th>Họ tên</th>
-                    <th>Tên đăng nhập</th>
-                    <th>Vai trò</th>
-                    <th>Thao tác</th>
-                    <th>Mô tả</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int stt = 1;
-                }
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                        <td>@item.UserFullName</td>
-                        <td>@item.Username</td>
-                        <td>@item.Role</td>
-                        <td>@item.ActionName</td>
-                        <td>@item.Description</td>
-                    </tr>
-                    stt++;
-                }
-            </tbody>
-        </table>
 
-        @if (Model.Count == 0)
-        {
-            <div class="alert alert-info">Chưa có lịch sử thao tác nào.</div>
-        }
+        <div class="content-card-body">
+
+            @if (Model.Count == 0)
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                    <h3>Chưa có lịch sử thao tác</h3>
+
+                    <p>
+                        Hệ thống chưa ghi nhận thao tác nào.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="table-wrapper">
+                    <div class="table-responsive">
+
+                        <table class="table data-table align-middle mb-0">
+
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Thời gian</th>
+                                    <th>Họ tên</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Vai trò</th>
+                                    <th>Thao tác</th>
+                                    <th>Mô tả</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @{
+                                    int stt = 1;
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <span class="fw-semibold">
+                                                @stt
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            @item.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")
+                                        </td>
+
+                                        <td>
+                                            @item.UserFullName
+                                        </td>
+
+                                        <td>
+                                            @item.Username
+                                        </td>
+
+                                        <td>
+                                            <span class="badge bg-light text-dark">
+                                                @item.Role
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span class="fw-semibold">
+                                                @item.ActionName
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            @item.Description
+                                        </td>
+
+                                    </tr>
+
+                                    stt++;
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+
     </div>
+
 </div>

@@ -4,70 +4,168 @@
     ViewData["Title"] = "Xe đang gửi";
 }
 
-<div class="container-fluid">
+<div class="page-shell">
+
     <div class="content-card">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Danh sách xe đang gửi trong bãi</h2>
-            <a asp-action="CheckIn" class="btn btn-primary">+ Nhập xe vào</a>
+
+        <div class="content-card-header">
+
+            <div>
+                <div class="page-kicker">QUẢN LÝ XE</div>
+
+                <h2 class="page-title">
+                    Danh sách xe đang gửi trong bãi
+                </h2>
+
+                <p class="page-description">
+                    Theo dõi các phương tiện hiện đang có trong bãi xe.
+                </p>
+            </div>
+
+            <div class="header-actions">
+
+                <a asp-action="CheckIn"
+                   class="btn btn-primary">
+                    + Nhập xe vào
+                </a>
+
+            </div>
+
         </div>
 
-        @if (TempData["Success"] != null)
-        {
-            <div class="alert alert-success">@TempData["Success"]</div>
-        }
+        <div class="content-card-body">
 
-        @if (TempData["Error"] != null)
-        {
-            <div class="alert alert-danger">@TempData["Error"]</div>
-        }
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success soft-alert">
+                    <strong>Thành công</strong>
+                    <div>@TempData["Success"]</div>
+                </div>
+            }
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>STT</th>
-                    <th>Biển số</th>
-                    <th>Loại xe</th>
-                    <th>Chủ xe</th>
-                    <th>SĐT</th>
-                    <th>Giờ vào</th>
-                    <th>Trạng thái</th>
-                    <th width="140">Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int stt = 1;
-                }
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@item.Vehicle?.LicensePlate</td>
-                        <td>@item.Vehicle?.VehicleType</td>
-                        <td>@item.Vehicle?.OwnerName</td>
-                        <td>@item.Vehicle?.PhoneNumber</td>
-                        <td>@item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                        <td>
-                            <span class="badge bg-success">@item.Status</span>
-                        </td>
-                        <td>
-                            <a asp-action="CheckOut" asp-route-id="@item.Id" class="btn btn-warning btn-sm mb-1">
-                                Xử lý xe ra
-                            </a>
-                            <br />
-                            <a asp-action="LostTicket" class="btn btn-danger btn-sm">
-                                Mất vé
-                            </a>
-                        </td>
-                    </tr>
-                    stt++;
-                }
-            </tbody>
-        </table>
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger soft-alert">
+                    <strong>Không thể thực hiện</strong>
+                    <div>@TempData["Error"]</div>
+                </div>
+            }
 
-        @if (Model.Count == 0)
-        {
-            <div class="alert alert-info">Hiện chưa có xe nào trong bãi.</div>
-        }
+            @if (Model.Count == 0)
+            {
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        🚗
+                    </div>
+
+                    <div class="empty-state-title">
+                        Chưa có xe trong bãi
+                    </div>
+
+                    <div class="empty-state-text">
+                        Hiện chưa có phương tiện nào đang được gửi trong bãi.
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive table-frame">
+
+                    <table class="table table-bordered table-striped data-table align-middle">
+
+                        <thead>
+
+                            <tr>
+                                <th>STT</th>
+                                <th>Biển số</th>
+                                <th>Loại xe</th>
+                                <th>Chủ xe</th>
+                                <th>SĐT</th>
+                                <th>Giờ vào</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @{
+                                int stt = 1;
+                            }
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @stt
+                                    </td>
+
+                                    <td>
+                                        <span class="vehicle-plate">
+                                            @item.Vehicle?.LicensePlate
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.VehicleType
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.OwnerName
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.PhoneNumber
+                                    </td>
+
+                                    <td>
+                                        @item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-success">
+                                            @item.Status
+                                        </span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="table-actions">
+
+                                            <a asp-action="CheckOut"
+                                               asp-route-id="@item.Id"
+                                               class="btn btn-warning btn-sm">
+                                                Xử lý xe ra
+                                            </a>
+
+                                            <a asp-action="LostTicket"
+                                               asp-route-id="@item.Id"
+                                               class="btn btn-danger btn-sm">
+                                                Mất vé
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                stt++;
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
     </div>
+
 </div>

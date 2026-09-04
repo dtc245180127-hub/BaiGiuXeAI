@@ -4,46 +4,129 @@
     ViewData["Title"] = "Nhập xe vào";
 }
 
-<div class="container-fluid">
+<div class="page-shell">
+
     <div class="content-card">
-        <h2 class="mb-4">Nhập thông tin xe vào bãi</h2>
 
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Error</div>
-        }
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">QUẢN LÝ XE</div>
 
-        <form asp-action="CheckIn" method="post">
-            <div class="mb-3">
-                <label class="form-label">Biển số xe</label>
-                <input asp-for="LicensePlate" class="form-control" />
-                <span asp-validation-for="LicensePlate" class="text-danger"></span>
+                <h2 class="page-title">
+                    Nhập thông tin xe vào bãi
+                </h2>
+
+                <p class="page-description">
+                    Nhập thông tin phương tiện để ghi nhận xe vào bãi.
+                </p>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Loại xe</label>
-                <select asp-for="VehicleType" class="form-select">
-                    <option value="">-- Chọn loại xe --</option>
-                    <option value="Xe máy">Xe máy</option>
-                    <option value="Ô tô">Ô tô</option>
-                </select>
-                <span asp-validation-for="VehicleType" class="text-danger"></span>
-            </div>
+        <div class="content-card-body">
 
-            <div class="mb-3">
-                <label class="form-label">Tên chủ xe</label>
-                <input asp-for="OwnerName" class="form-control" />
-            </div>
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger soft-alert">
+                    <strong>Không thể nhập xe</strong>
+                    <div>@ViewBag.Error</div>
+                </div>
+            }
 
-            <div class="mb-3">
-                <label class="form-label">Số điện thoại</label>
-                <input asp-for="PhoneNumber" class="form-control" />
-            </div>
+            <form asp-action="CheckIn" method="post">
 
-            <button type="submit" class="btn btn-primary">Lưu và cho xe vào bãi</button>
-            <a asp-action="CurrentVehicles" class="btn btn-secondary">Xem xe đang gửi</a>
-        </form>
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        Thông tin xe
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label asp-for="LicensePlate" class="form-label">
+                                Biển số xe
+                            </label>
+
+                            <input asp-for="LicensePlate"
+                                   class="form-control"
+                                   placeholder="Nhập biển số xe" />
+
+                            <span asp-validation-for="LicensePlate"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="VehicleType" class="form-label">
+                                Loại xe
+                            </label>
+
+                            <select asp-for="VehicleType"
+                                    class="form-select">
+
+                                <option value="">
+                                    -- Chọn loại xe --
+                                </option>
+
+                                <option value="Xe máy">
+                                    Xe máy
+                                </option>
+
+                                <option value="Ô tô">
+                                    Ô tô
+                                </option>
+
+                            </select>
+
+                            <span asp-validation-for="VehicleType"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="OwnerName" class="form-label">
+                                Tên chủ xe
+                            </label>
+
+                            <input asp-for="OwnerName"
+                                   class="form-control"
+                                   placeholder="Nhập tên chủ xe" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label">
+                                Số điện thoại
+                            </label>
+
+                            <input asp-for="PhoneNumber"
+                                   class="form-control"
+                                   placeholder="Nhập số điện thoại" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="action-buttons">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Lưu và cho xe vào bãi
+                    </button>
+
+                    <a asp-action="CurrentVehicles"
+                       class="btn btn-secondary">
+                        Xem xe đang gửi
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
+
 </div>
 
 @section Scripts {

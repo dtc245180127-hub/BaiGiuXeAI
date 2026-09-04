@@ -26,6 +26,7 @@ Các thành phần chính của project:
 - `Views/`: giao diện người dùng
 - `Data/`: cấu hình DbContext và kết nối cơ sở dữ liệu
 - `Migrations/`: các migration của Entity Framework Core
+- `docs/`: tài liệu kỹ thuật dự án (Requirements, Use Case, Database Design, AI Log)
 - `wwwroot/`: CSS, JavaScript và tài nguyên giao diện
 - `Program.cs`: cấu hình và khởi chạy ứng dụng
 

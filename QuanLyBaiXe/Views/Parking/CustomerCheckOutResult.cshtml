@@ -4,60 +4,122 @@
     ViewData["Title"] = "Kết quả nhận xe";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <h2 class="mb-4">Kết quả nhận xe</h2>
+<div class="page-shell">
 
-            <div class="alert alert-success">
-                Nhận xe thành công.
+    <div class="content-card">
+
+        <div class="content-card-header">
+
+            <div>
+                <div class="page-kicker">KHÁCH HÀNG</div>
+
+                <h2 class="page-title">
+                    Kết quả nhận xe
+                </h2>
+
+                <p class="page-description">
+                    Thông tin phiên gửi xe vừa được hoàn tất.
+                </p>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <th style="width: 220px;">Biển số xe</th>
-                        <td>@Model.Vehicle?.LicensePlate</td>
-                    </tr>
-                    <tr>
-                        <th>Loại xe</th>
-                        <td>@Model.Vehicle?.VehicleType</td>
-                    </tr>
-                    <tr>
-                        <th>Tên chủ xe</th>
-                        <td>@Model.Vehicle?.OwnerName</td>
-                    </tr>
-                    <tr>
-                        <th>Số điện thoại</th>
-                        <td>@Model.Vehicle?.PhoneNumber</td>
-                    </tr>
-                    <tr>
-                        <th>Giờ vào</th>
-                        <td>@Model.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                    </tr>
-                    <tr>
-                        <th>Giờ ra</th>
-                        <td>@(Model.CheckOutTime.HasValue? Model.CheckOutTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "")</td>
-                    </tr>
-                    <tr>
-                        <th>Phí gửi xe</th>
-                        <td>@string.Format("{0:N0} đ", Model.Fee ?? 0)</td>
-                    </tr>
-                    <tr>
-                        <th>Trạng thái</th>
-                        <td>@Model.Status</td>
-                    </tr>
+        </div>
+
+        <div class="content-card-body">
+
+            <div class="alert alert-success soft-alert">
+
+                <strong>Nhận xe thành công.</strong>
+
+            </div>
+
+            <div class="table-responsive table-frame">
+
+                <table class="table table-bordered detail-table">
+
+                    <tbody>
+
+                        <tr>
+                            <th>Biển số xe</th>
+                            <td>
+                                @Model.Vehicle?.LicensePlate
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Loại xe</th>
+                            <td>
+                                @Model.Vehicle?.VehicleType
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Tên chủ xe</th>
+                            <td>
+                                @Model.Vehicle?.OwnerName
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Số điện thoại</th>
+                            <td>
+                                @Model.Vehicle?.PhoneNumber
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Giờ vào</th>
+                            <td>
+                                @Model.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Giờ ra</th>
+                            <td>
+                                @(Model.CheckOutTime.HasValue
+                                    ? Model.CheckOutTime.Value.ToString("dd/MM/yyyy HH:mm:ss")
+                                    : "")
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Phí gửi xe</th>
+                            <td>
+                                @string.Format("{0:N0} đ", Model.Fee ?? 0)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Trạng thái</th>
+                            <td>
+                                @Model.Status
+                            </td>
+                        </tr>
+
+                    </tbody>
+
                 </table>
+
             </div>
 
-            <div class="d-flex gap-2">
-                <a asp-controller="Parking" asp-action="CustomerReceive" class="btn btn-primary">
+            <div class="action-buttons">
+
+                <a asp-controller="Parking"
+                   asp-action="CustomerReceive"
+                   class="btn btn-primary">
                     Tiếp tục
                 </a>
-                <a asp-controller="Home" asp-action="CustomerDashboard" class="btn btn-secondary">
+
+                <a asp-controller="Home"
+                   asp-action="CustomerDashboard"
+                   class="btn btn-secondary">
                     Về dashboard
                 </a>
+
             </div>
+
         </div>
+
     </div>
+
 </div>

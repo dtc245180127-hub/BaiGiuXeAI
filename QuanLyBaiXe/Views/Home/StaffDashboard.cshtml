@@ -2,38 +2,123 @@
     ViewData["Title"] = "Dashboard nhân viên";
 }
 
-<div class="page-title">Dashboard NhanVien</div>
+<div class="page-shell">
 
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="dashboard-card stat-card">
-            <h5>Xe vào hôm nay</h5>
-            <h2>@ViewBag.TotalCheckInToday</h2>
-            <p>Tổng lượt gửi</p>
+    <div class="page-heading-card">
+        <div>
+            <div class="page-kicker">NHÂN VIÊN</div>
+
+            <h1 class="page-title">
+                Dashboard nhân viên
+            </h1>
+
+            <p class="page-description">
+                Theo dõi nhanh các nghiệp vụ trong ngày.
+            </p>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="dashboard-card stat-card">
-            <h5>Xe ra hôm nay</h5>
-            <h2>@ViewBag.TotalCheckOutToday</h2>
-            <p>Tổng lượt nhận</p>
+
+    <!-- =========================
+         THỐNG KÊ
+         ========================= -->
+
+    <div class="row g-4 dashboard-stat-row">
+
+        <div class="col-md-4">
+            <div class="dashboard-card stat-card h-100">
+
+                <div class="stat-card-top">
+                    <div class="stat-label">
+                        Xe vào hôm nay
+                    </div>
+                </div>
+
+                <div class="stat-number">
+                    @ViewBag.TotalCheckInToday
+                </div>
+
+                <div class="stat-description">
+                    Tổng lượt gửi
+                </div>
+
+            </div>
         </div>
+
+
+        <div class="col-md-4">
+            <div class="dashboard-card stat-card h-100">
+
+                <div class="stat-card-top">
+                    <div class="stat-label">
+                        Xe ra hôm nay
+                    </div>
+                </div>
+
+                <div class="stat-number">
+                    @ViewBag.TotalCheckOutToday
+                </div>
+
+                <div class="stat-description">
+                    Tổng lượt nhận
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="dashboard-card stat-card h-100">
+
+                <div class="stat-card-top">
+                    <div class="stat-label">
+                        Vé tháng xử lý
+                    </div>
+                </div>
+
+                <div class="stat-number">
+                    @ViewBag.TotalMonthlyTicketHandled
+                </div>
+
+                <div class="stat-description">
+                    Tạo mới hoặc gia hạn trong ngày
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-md-4">
-        <div class="dashboard-card stat-card">
-            <h5>Vé tháng xử lý</h5>
-            <h2>@ViewBag.TotalMonthlyTicketHandled</h2>
-            <p>Tạo mới hoặc gia hạn trong ngày</p>
-        </div>
-    </div>
-</div>
 
-<div class="content-card mt-4">
-    <h4 class="mb-3">Nghiệp vụ nhân viên</h4>
-    <p class="text-muted mb-0">
-        Nhân viên có thể thực hiện gửi xe, xử lý xe ra, tra cứu xe,
-        tạo vé tháng và xử lý mất vé trực tiếp trên hệ thống.
-    </p>
+    <!-- =========================
+         NGHIỆP VỤ
+         ========================= -->
+
+    <div class="content-card">
+
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">NGHIỆP VỤ</div>
+
+                <h4>
+                    Nghiệp vụ nhân viên
+                </h4>
+
+                <p>
+                    Các chức năng quản lý và xử lý trong bãi xe.
+                </p>
+            </div>
+        </div>
+
+        <div class="content-card-body">
+
+            <p class="overview-text mb-0">
+                Nhân viên có thể thực hiện gửi xe, xử lý xe ra, tra cứu xe,
+                tạo vé tháng và xử lý mất vé trực tiếp trên hệ thống.
+            </p>
+
+        </div>
+
+    </div>
+
 </div>

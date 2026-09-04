@@ -4,27 +4,67 @@
     ViewData["Title"] = "Nhận xe";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <h2 class="mb-4">Nhận xe</h2>
+<div class="page-shell">
+
+    <div class="content-card">
+
+        <div class="content-card-header">
+
+            <div>
+                <div class="page-kicker">KHÁCH HÀNG</div>
+
+                <h2 class="page-title">
+                    Nhận xe
+                </h2>
+
+                <p class="page-description">
+                    Danh sách xe đang gửi và thực hiện nhận xe.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="content-card-body">
 
             @if (TempData["Error"] != null)
             {
-                <div class="alert alert-danger">@TempData["Error"]</div>
+                <div class="alert alert-danger soft-alert">
+
+                    <strong>Không thể nhận xe</strong>
+
+                    <div>
+                        @TempData["Error"]
+                    </div>
+
+                </div>
             }
 
             @if (!Model.Any())
             {
-                <div class="alert alert-info">
-                    Hiện không có xe nào đang gửi.
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        🚗
+                    </div>
+
+                    <div class="empty-state-title">
+                        Không có xe đang gửi
+                    </div>
+
+                    <div class="empty-state-text">
+                        Hiện không có xe nào đang được gửi trong bãi.
+                    </div>
+
                 </div>
             }
             else
             {
-                <div class="table-responsive">
-                    <table class="table table-bordered align-middle">
-                        <thead class="table-light">
+                <div class="table-responsive table-frame">
+
+                    <table class="table data-table align-middle">
+
+                        <thead>
+
                             <tr>
                                 <th>Biển số xe</th>
                                 <th>Loại xe</th>
@@ -33,34 +73,81 @@
                                 <th>Giờ vào</th>
                                 <th>Thao tác</th>
                             </tr>
+
                         </thead>
+
                         <tbody>
+
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.Vehicle?.LicensePlate</td>
-                                    <td>@item.Vehicle?.VehicleType</td>
-                                    <td>@item.Vehicle?.OwnerName</td>
-                                    <td>@item.Vehicle?.PhoneNumber</td>
-                                    <td>@item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
+
                                     <td>
-                                        <form asp-action="CustomerCheckOut" method="post">
-                                            <input type="hidden" name="id" value="@item.Id" />
-                                            <button type="submit" class="btn btn-success btn-sm">
-                                                Nhận xe
-                                            </button>
-                                        </form>
+                                        <span class="vehicle-plate">
+                                            @item.Vehicle?.LicensePlate
+                                        </span>
                                     </td>
+
+                                    <td>
+                                        @item.Vehicle?.VehicleType
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.OwnerName
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.PhoneNumber
+                                    </td>
+
+                                    <td>
+                                        @item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")
+                                    </td>
+
+                                    <td>
+
+                                        <div class="table-actions">
+
+                                            <form asp-action="CustomerCheckOut"
+                                                  method="post">
+
+                                                <input type="hidden"
+                                                       name="id"
+                                                       value="@item.Id" />
+
+                                                <button type="submit"
+                                                        class="btn btn-success btn-sm">
+                                                    Nhận xe
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
                                 </tr>
                             }
+
                         </tbody>
+
                     </table>
+
                 </div>
             }
 
-            <a asp-controller="Home" asp-action="CustomerDashboard" class="btn btn-secondary mt-3">
-                Quay lại
-            </a>
+            <div class="action-buttons">
+
+                <a asp-controller="Home"
+                   asp-action="CustomerDashboard"
+                   class="btn btn-secondary">
+                    Quay lại
+                </a>
+
+            </div>
+
         </div>
+
     </div>
+
 </div>

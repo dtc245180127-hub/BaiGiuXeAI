@@ -2,47 +2,236 @@
     ViewData["Title"] = "Dashboard quản lý";
 }
 
-<div class="page-title">Dashboard quản lý</div>
+<div class="dashboard-page">
 
-<div class="row g-4">
-    <div class="col-md-3">
-        <div class="dashboard-card stat-card">
-            <h5>Tổng số xe trong bãi</h5>
-            <h2>@ViewBag.TotalVehiclesInParking</h2>
-            <p>Đang gửi hiện tại</p>
+    <div class="dashboard-heading">
+        <div>
+            <div class="dashboard-eyebrow">TỔNG QUAN HỆ THỐNG</div>
+            <h1 class="page-title">Dashboard quản lý</h1>
+            <p class="dashboard-description">
+                Theo dõi nhanh tình hình hoạt động và các chỉ số quan trọng của bãi xe.
+            </p>
+        </div>
+
+        <div class="dashboard-status">
+            <span class="status-dot"></span>
+            Hệ thống đang hoạt động
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="dashboard-card stat-card">
-            <h5>Vé tháng đang hoạt động</h5>
-            <h2>@ViewBag.TotalMonthlyTicketsActive</h2>
-            <p>Còn hiệu lực</p>
+    <div class="row g-4 dashboard-stat-row">
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card stat-card stat-card-blue">
+
+                <div class="stat-card-top">
+                    <div class="stat-icon">
+                        🚗
+                    </div>
+
+                    <span class="stat-label">
+                        XE TRONG BÃI
+                    </span>
+                </div>
+
+                <div class="stat-number">
+                    @ViewBag.TotalVehiclesInParking
+                </div>
+
+                <div class="stat-description">
+                    Đang gửi hiện tại
+                </div>
+
+            </div>
         </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card stat-card stat-card-green">
+
+                <div class="stat-card-top">
+                    <div class="stat-icon">
+                        🎫
+                    </div>
+
+                    <span class="stat-label">
+                        VÉ THÁNG
+                    </span>
+                </div>
+
+                <div class="stat-number">
+                    @ViewBag.TotalMonthlyTicketsActive
+                </div>
+
+                <div class="stat-description">
+                    Vé đang còn hiệu lực
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card stat-card stat-card-purple">
+
+                <div class="stat-card-top">
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <span class="stat-label">
+                        DOANH THU HÔM NAY
+                    </span>
+                </div>
+
+                <div class="stat-number stat-money">
+                    @string.Format("{0:N0} đ", ViewBag.TodayRevenue)
+                </div>
+
+                <div class="stat-description">
+                    Doanh thu tạm tính trong ngày
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card stat-card stat-card-orange">
+
+                <div class="stat-card-top">
+                    <div class="stat-icon">
+                        ⏰
+                    </div>
+
+                    <span class="stat-label">
+                        VÉ SẮP HẾT HẠN
+                    </span>
+                </div>
+
+                <div class="stat-number">
+                    @ViewBag.ExpiringTickets
+                </div>
+
+                <div class="stat-description">
+                    Trong 7 ngày tới
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-md-3">
-        <div class="dashboard-card stat-card">
-            <h5>Doanh thu hôm nay</h5>
-            <h2>@string.Format("{0:N0} đ", ViewBag.TodayRevenue)</h2>
-            <p>Doanh thu tạm tính</p>
+    <div class="row g-4 mt-1">
+
+        <div class="col-lg-8">
+
+            <div class="content-card dashboard-overview-card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <div class="section-eyebrow">
+                            QUẢN TRỊ BÃI XE
+                        </div>
+
+                        <h4>
+                            Tổng quan hoạt động
+                        </h4>
+                    </div>
+
+                    <div class="section-icon">
+                        ◈
+                    </div>
+
+                </div>
+
+                <p class="overview-text">
+                    Quản lý có thể theo dõi doanh thu, kiểm tra tình trạng xe
+                    trong bãi, giám sát vé tháng, quản lý tài khoản và xem
+                    lịch sử thao tác của toàn hệ thống.
+                </p>
+
+                <div class="overview-features">
+
+                    <div class="overview-feature">
+                        <div class="feature-icon">
+                            ◷
+                        </div>
+
+                        <div>
+                            <strong>Theo dõi hoạt động</strong>
+                            <span>
+                                Kiểm tra tình trạng xe và hoạt động gửi xe.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="overview-feature">
+                        <div class="feature-icon">
+                            ◫
+                        </div>
+
+                        <div>
+                            <strong>Quản lý doanh thu</strong>
+                            <span>
+                                Xem và phân tích các báo cáo doanh thu.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="overview-feature">
+                        <div class="feature-icon">
+                            ♙
+                        </div>
+
+                        <div>
+                            <strong>Quản lý hệ thống</strong>
+                            <span>
+                                Quản lý tài khoản và lịch sử thao tác.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
+
+        <div class="col-lg-4">
+
+            <div class="content-card dashboard-report-card">
+
+                <div class="report-card-icon">
+                    ▥
+                </div>
+
+                <div class="report-card-content">
+
+                    <div class="section-eyebrow">
+                        BÁO CÁO
+                    </div>
+
+                    <h4>
+                        Báo cáo doanh thu
+                    </h4>
+
+                    <p>
+                        Xem chi tiết doanh thu và sử dụng chức năng
+                        phân tích AI để hỗ trợ đánh giá tình hình bãi xe.
+                    </p>
+
+                    <a asp-controller="Report"
+                       asp-action="Index"
+                       class="dashboard-primary-button">
+                        Xem báo cáo
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="col-md-3">
-        <div class="dashboard-card stat-card">
-            <h5>Vé sắp hết hạn</h5>
-            <h2>@ViewBag.ExpiringTickets</h2>
-            <p>Trong 7 ngày tới</p>
-        </div>
-    </div>
-</div>
-
-<div class="content-card mt-4">
-    <h4 class="mb-3">Tổng quan quản trị</h4>
-    <p class="text-muted mb-3">
-        Tại đây quản lý có thể theo dõi doanh thu, kiểm tra tình trạng xe trong bãi,
-        giám sát vé tháng, quản lý tài khoản và xem lịch sử thao tác của toàn hệ thống.
-    </p>
-    <a asp-controller="Report" asp-action="Index" class="btn btn-primary">Xem báo cáo chi tiết</a>
 </div>

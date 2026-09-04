@@ -6,55 +6,147 @@
     var vehicles = ViewBag.Vehicles as List<Vehicle>;
 }
 
-<div class="container-fluid">
-    <div class="card dashboard-card p-4">
-        <h2 class="mb-4">Tạo vé tháng</h2>
+<div class="page-shell">
+    <div class="content-card">
 
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">VÉ THÁNG</div>
 
-            <div class="mb-3">
-                <label class="form-label">Chọn xe</label>
-                <select asp-for="VehicleId" class="form-select">
-                    <option value="">-- Chọn biển số xe --</option>
-                    @if (vehicles != null)
-                    {
-                        foreach (var v in vehicles)
-                        {
-                            <option value="@v.Id">@v.LicensePlate - @v.VehicleType</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="VehicleId" class="text-danger"></span>
+                <h2 class="page-title">
+                    Tạo vé tháng
+                </h2>
+
+                <p class="page-description">
+                    Nhập thông tin để tạo vé tháng cho phương tiện.
+                </p>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <label asp-for="OwnerName" class="form-label">Tên chủ vé</label>
-                <input asp-for="OwnerName" class="form-control" />
-                <span asp-validation-for="OwnerName" class="text-danger"></span>
-            </div>
+        <div class="content-card-body">
 
-            <div class="mb-3">
-                <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
+            <form asp-action="Create" method="post">
 
-            <div class="mb-3">
-                <label asp-for="StartDate" class="form-label">Ngày bắt đầu</label>
-                <input asp-for="StartDate" type="date" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
+                <div asp-validation-summary="All"
+                     class="text-danger validation-summary mb-3">
+                </div>
 
-            <div class="mb-3">
-                <label asp-for="EndDate" class="form-label">Ngày hết hạn</label>
-                <input asp-for="EndDate" type="date" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
+                <div class="form-section">
 
-            <button type="submit" class="btn btn-primary">Lưu vé tháng</button>
-            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-        </form>
+                    <div class="form-section-title">
+                        Thông tin vé tháng
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-12">
+                            <label class="form-label">
+                                Chọn xe
+                            </label>
+
+                            <select asp-for="VehicleId"
+                                    class="form-select">
+
+                                <option value="">
+                                    -- Chọn biển số xe --
+                                </option>
+
+                                @if (vehicles != null)
+                                {
+                                    foreach (var v in vehicles)
+                                    {
+                                        <option value="@v.Id">
+                                            @v.LicensePlate - @v.VehicleType
+                                        </option>
+                                    }
+                                }
+                            </select>
+
+                            <span asp-validation-for="VehicleId"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="OwnerName"
+                                   class="form-label">
+                                Tên chủ vé
+                            </label>
+
+                            <input asp-for="OwnerName"
+                                   class="form-control"
+                                   placeholder="Nhập tên chủ vé" />
+
+                            <span asp-validation-for="OwnerName"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber"
+                                   class="form-label">
+                                Số điện thoại
+                            </label>
+
+                            <input asp-for="PhoneNumber"
+                                   class="form-control"
+                                   placeholder="Nhập số điện thoại" />
+
+                            <span asp-validation-for="PhoneNumber"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="StartDate"
+                                   class="form-label">
+                                Ngày bắt đầu
+                            </label>
+
+                            <input asp-for="StartDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="StartDate"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="EndDate"
+                                   class="form-label">
+                                Ngày hết hạn
+                            </label>
+
+                            <input asp-for="EndDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="EndDate"
+                                  class="text-danger field-validation">
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Lưu vé tháng
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary">
+                        Quay lại
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </div>
 

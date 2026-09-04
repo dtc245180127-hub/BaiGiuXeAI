@@ -2,14 +2,62 @@
     ViewData["Title"] = "Trang chủ";
 }
 
-<div class="container mt-5">
-    <div class="card shadow rounded-4">
-        <div class="card-body p-4">
-            <h2 class="mb-3">Hệ thống quản lý bãi giữ xe</h2>
-            <p><strong>Xin chào:</strong> @ViewBag.FullName</p>
-            <p><strong>Vai trò:</strong> @ViewBag.Role</p>
+<div class="page-shell">
 
-            <a asp-controller="Auth" asp-action="Logout" class="btn btn-danger">Đăng xuất</a>
+    <div class="content-card">
+
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">HỆ THỐNG QUẢN LÝ</div>
+
+                <h2 class="page-title">
+                    Hệ thống quản lý bãi giữ xe
+                </h2>
+
+                <p class="page-description">
+                    Thông tin tài khoản đang đăng nhập.
+                </p>
+            </div>
         </div>
+
+
+        <div class="content-card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered detail-table">
+
+                    <tbody>
+
+                        <tr>
+                            <th>Xin chào</th>
+                            <td>@ViewBag.FullName</td>
+                        </tr>
+
+                        <tr>
+                            <th>Vai trò</th>
+                            <td>@ViewBag.Role</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="action-buttons">
+
+                <a asp-controller="Auth"
+                   asp-action="Logout"
+                   class="btn btn-danger">
+                    Đăng xuất
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
+
 </div>

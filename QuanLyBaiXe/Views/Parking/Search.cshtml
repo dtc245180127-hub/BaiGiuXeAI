@@ -4,70 +4,178 @@
     ViewData["Title"] = "Tra cứu xe";
 }
 
-<div class="container-fluid">
+<div class="page-shell">
+
     <div class="content-card">
-        <h2 class="mb-4">Tra cứu xe</h2>
 
-        <form method="get" asp-action="Search" class="row g-3 mb-4">
-            <div class="col-md-10">
-                <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control"
-                       placeholder="Nhập biển số, tên chủ xe hoặc số điện thoại..." />
+        <div class="content-card-header">
+
+            <div>
+                <div class="page-kicker">TRA CỨU</div>
+
+                <h2 class="page-title">
+                    Tra cứu xe
+                </h2>
+
+                <p class="page-description">
+                    Tìm kiếm theo biển số, tên chủ xe hoặc số điện thoại.
+                </p>
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">Tra cứu</button>
-            </div>
-        </form>
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>STT</th>
-                    <th>Biển số</th>
-                    <th>Loại xe</th>
-                    <th>Chủ xe</th>
-                    <th>SĐT</th>
-                    <th>Giờ vào</th>
-                    <th>Giờ ra</th>
-                    <th>Phí</th>
-                    <th>Trạng thái</th>
-                    <th>Mất vé</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int stt = 1;
-                }
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@item.Vehicle?.LicensePlate</td>
-                        <td>@item.Vehicle?.VehicleType</td>
-                        <td>@item.Vehicle?.OwnerName</td>
-                        <td>@item.Vehicle?.PhoneNumber</td>
-                        <td>@item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")</td>
-                        <td>@(item.CheckOutTime.HasValue? item.CheckOutTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "--")</td>
-                        <td>@(item.Fee.HasValue ? string.Format("{0:N0} đ", item.Fee) : "--")</td>
-                        <td>@item.Status</td>
-                        <td>
-                            @if (item.IsLostTicket)
-                            {
-                                <span class="badge bg-danger">Có</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-secondary">Không</span>
-                            }
-                        </td>
-                    </tr>
-                    stt++;
-                }
-            </tbody>
-        </table>
+        </div>
 
-        @if (Model.Count == 0)
-        {
-            <div class="alert alert-info">Không tìm thấy dữ liệu phù hợp.</div>
-        }
+        <div class="content-card-body">
+
+            <form method="get"
+                  asp-action="Search"
+                  class="search-form">
+
+                <div class="search-form-input">
+
+                    <input type="text"
+                           name="keyword"
+                           value="@ViewBag.Keyword"
+                           class="form-control"
+                           placeholder="Nhập biển số, tên chủ xe hoặc số điện thoại..." />
+
+                </div>
+
+                <div class="search-form-action">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Tra cứu
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            @if (Model.Count == 0)
+            {
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        🔎
+                    </div>
+
+                    <div class="empty-state-title">
+                        Không tìm thấy dữ liệu
+                    </div>
+
+                    <div class="empty-state-text">
+                        Không tìm thấy xe phù hợp với thông tin tra cứu.
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive table-frame">
+
+                    <table class="table table-bordered table-striped data-table align-middle">
+
+                        <thead>
+
+                            <tr>
+                                <th>STT</th>
+                                <th>Biển số</th>
+                                <th>Loại xe</th>
+                                <th>Chủ xe</th>
+                                <th>SĐT</th>
+                                <th>Giờ vào</th>
+                                <th>Giờ ra</th>
+                                <th>Phí</th>
+                                <th>Trạng thái</th>
+                                <th>Mất vé</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @{
+                                int stt = 1;
+                            }
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @stt
+                                    </td>
+
+                                    <td>
+                                        <span class="vehicle-plate">
+                                            @item.Vehicle?.LicensePlate
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.VehicleType
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.OwnerName
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.PhoneNumber
+                                    </td>
+
+                                    <td>
+                                        @item.CheckInTime.ToString("dd/MM/yyyy HH:mm:ss")
+                                    </td>
+
+                                    <td>
+                                        @(item.CheckOutTime.HasValue
+                                            ? item.CheckOutTime.Value.ToString("dd/MM/yyyy HH:mm:ss")
+                                            : "--")
+                                    </td>
+
+                                    <td>
+                                        @(item.Fee.HasValue
+                                            ? string.Format("{0:N0} đ", item.Fee)
+                                            : "--")
+                                    </td>
+
+                                    <td>
+                                        @item.Status
+                                    </td>
+
+                                    <td>
+
+                                        @if (item.IsLostTicket)
+                                        {
+                                            <span class="badge bg-danger">
+                                                Có
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                Không
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+
+                                stt++;
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+        </div>
+
     </div>
+
 </div>

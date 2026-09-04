@@ -2,15 +2,88 @@
     ViewData["Title"] = "Dashboard khách hàng";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <h2 class="mb-3">Dashboard khách hàng</h2>
-            <p class="mb-2">Xin chào, <strong>@ViewBag.FullName</strong></p>
-            <p class="text-muted">
-                Khách hàng có thể sử dụng menu bên trái để thực hiện các chức năng:
-                gửi xe, nhận xe, đăng ký vé tháng và gia hạn vé tháng.
-            </p>
+<div class="page-shell">
+
+    <div class="content-card">
+
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">KHÁCH HÀNG</div>
+
+                <h2 class="page-title">
+                    Dashboard khách hàng
+                </h2>
+
+                <p class="page-description">
+                    Tổng quan các chức năng dành cho khách hàng.
+                </p>
+            </div>
         </div>
+
+        <div class="content-card-body">
+
+            <div class="dashboard-overview-card">
+
+                <div class="section-heading">
+                    <div>
+                        <h4>
+                            Xin chào, <strong>@ViewBag.FullName</strong>
+                        </h4>
+                    </div>
+                </div>
+
+                <p class="overview-text">
+                    Khách hàng có thể sử dụng menu bên trái để thực hiện các chức năng:
+                    gửi xe, nhận xe, đăng ký vé tháng và gia hạn vé tháng.
+                </p>
+
+                <div class="overview-features">
+
+                    <div class="overview-feature">
+                        <div class="feature-icon">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                        </div>
+
+                        <div>
+                            <strong>Gửi xe</strong>
+                            <span>
+                                Đăng ký và gửi phương tiện vào bãi.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="overview-feature">
+                        <div class="feature-icon">
+                            <i class="bi bi-car-front"></i>
+                        </div>
+
+                        <div>
+                            <strong>Nhận xe</strong>
+                            <span>
+                                Tra cứu và thực hiện nhận xe.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="overview-feature">
+                        <div class="feature-icon">
+                            <i class="bi bi-ticket-perforated"></i>
+                        </div>
+
+                        <div>
+                            <strong>Vé tháng</strong>
+                            <span>
+                                Đăng ký hoặc gia hạn vé tháng.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
 </div>

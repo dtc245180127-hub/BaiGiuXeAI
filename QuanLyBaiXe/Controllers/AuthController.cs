@@ -35,7 +35,9 @@ namespace QuanLyBaiXe.Controllers
 
             var user = _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefault(u => u.Username == model.Username && u.Password == model.Password);
+                .FirstOrDefault(u =>
+                    u.Username == model.Username &&
+                    u.Password == model.Password);
 
             if (user == null)
             {
@@ -43,55 +45,92 @@ namespace QuanLyBaiXe.Controllers
                 return View(model);
             }
 
-            HttpContext.Session.SetString("UserId", user.Id.ToString());
-            HttpContext.Session.SetString("Username", user.Username);
-            HttpContext.Session.SetString("FullName", user.FullName);
-            HttpContext.Session.SetString("Role", user.Role?.RoleName ?? "");
+            // Tạo một mã phiên chatbot mới cho mỗi lần đăng nhập
+            var chatSessionId = Guid.NewGuid().ToString();
 
-            _context.ActivityLogs.Add(new QuanLyBaiXe.Models.ActivityLog
-            {
-                UserFullName = user.FullName,
-                Username = user.Username,
-                Role = user.Role?.RoleName ?? "",
-                ActionName = "Đăng nhập",
-                Description = $"Người dùng {user.Username} đã đăng nhập vào hệ thống.",
-                CreatedAt = DateTime.Now
-            });
+            HttpContext.Session.SetString(
+                "UserId",
+                user.Id.ToString());
+
+            HttpContext.Session.SetString(
+                "Username",
+                user.Username);
+
+            HttpContext.Session.SetString(
+                "FullName",
+                user.FullName);
+
+            HttpContext.Session.SetString(
+                "Role",
+                user.Role?.RoleName ?? "");
+
+            HttpContext.Session.SetString(
+                "ChatSessionId",
+                chatSessionId);
+
+            _context.ActivityLogs.Add(
+                new QuanLyBaiXe.Models.ActivityLog
+                {
+                    UserFullName = user.FullName,
+                    Username = user.Username,
+                    Role = user.Role?.RoleName ?? "",
+                    ActionName = "Đăng nhập",
+                    Description =
+                        $"Người dùng {user.Username} đã đăng nhập vào hệ thống.",
+                    CreatedAt = DateTime.Now
+                });
+
             _context.SaveChanges();
 
             var role = user.Role?.RoleName ?? "";
 
             if (role == "QuanLy")
             {
-                return RedirectToAction("AdminDashboard", "Home");
+                return RedirectToAction(
+                    "AdminDashboard",
+                    "Home");
             }
             else if (role == "NhanVien")
             {
-                return RedirectToAction("StaffDashboard", "Home");
+                return RedirectToAction(
+                    "StaffDashboard",
+                    "Home");
             }
             else
             {
-                return RedirectToAction("CustomerDashboard", "Home");
+                return RedirectToAction(
+                    "CustomerDashboard",
+                    "Home");
             }
         }
 
         public IActionResult Logout()
         {
-            var fullName = HttpContext.Session.GetString("FullName") ?? "";
-            var username = HttpContext.Session.GetString("Username") ?? "";
-            var role = HttpContext.Session.GetString("Role") ?? "";
+            var fullName =
+                HttpContext.Session.GetString("FullName") ?? "";
 
-            _context.ActivityLogs.Add(new QuanLyBaiXe.Models.ActivityLog
-            {
-                UserFullName = fullName,
-                Username = username,
-                Role = role,
-                ActionName = "Đăng xuất",
-                Description = $"Người dùng {username} đã đăng xuất khỏi hệ thống.",
-                CreatedAt = DateTime.Now
-            });
+            var username =
+                HttpContext.Session.GetString("Username") ?? "";
+
+            var role =
+                HttpContext.Session.GetString("Role") ?? "";
+
+            _context.ActivityLogs.Add(
+                new QuanLyBaiXe.Models.ActivityLog
+                {
+                    UserFullName = fullName,
+                    Username = username,
+                    Role = role,
+                    ActionName = "Đăng xuất",
+                    Description =
+                        $"Người dùng {username} đã đăng xuất khỏi hệ thống.",
+                    CreatedAt = DateTime.Now
+                });
+
             _context.SaveChanges();
+
             HttpContext.Session.Clear();
+
             return RedirectToAction("Login");
         }
     }

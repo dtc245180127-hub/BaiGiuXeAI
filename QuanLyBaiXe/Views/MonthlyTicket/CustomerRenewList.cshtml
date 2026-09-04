@@ -4,32 +4,66 @@
     ViewData["Title"] = "Gia hạn vé tháng";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <h2 class="mb-4">Danh sách vé tháng</h2>
+<div class="page-shell">
+    <div class="content-card">
+
+        <div class="content-card-header">
+            <div>
+                <div class="page-kicker">KHÁCH HÀNG</div>
+
+                <h2 class="page-title">
+                    Gia hạn vé tháng
+                </h2>
+
+                <p class="page-description">
+                    Xem các vé tháng và thực hiện gia hạn khi cần.
+                </p>
+            </div>
+        </div>
+
+        <div class="content-card-body">
 
             @if (TempData["Success"] != null)
             {
-                <div class="alert alert-success">@TempData["Success"]</div>
+                <div class="alert alert-success soft-alert">
+                    <strong>Thành công</strong>
+                    <div>@TempData["Success"]</div>
+                </div>
             }
 
             @if (TempData["Error"] != null)
             {
-                <div class="alert alert-danger">@TempData["Error"]</div>
+                <div class="alert alert-danger soft-alert">
+                    <strong>Có lỗi xảy ra</strong>
+                    <div>@TempData["Error"]</div>
+                </div>
             }
 
             @if (!Model.Any())
             {
-                <div class="alert alert-info">
-                    Bạn chưa có vé tháng nào.
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        🎫
+                    </div>
+
+                    <div class="empty-state-title">
+                        Bạn chưa có vé tháng
+                    </div>
+
+                    <div class="empty-state-text">
+                        Hiện tài khoản của bạn chưa có vé tháng nào.
+                    </div>
+
                 </div>
             }
             else
             {
-                <div class="table-responsive">
-                    <table class="table table-bordered align-middle">
-                        <thead class="table-light">
+                <div class="table-responsive table-frame">
+
+                    <table class="table data-table align-middle">
+
+                        <thead>
                             <tr>
                                 <th>Biển số xe</th>
                                 <th>Loại xe</th>
@@ -42,33 +76,88 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
+
                         <tbody>
+
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.Vehicle?.LicensePlate</td>
-                                    <td>@item.Vehicle?.VehicleType</td>
-                                    <td>@item.OwnerName</td>
-                                    <td>@item.PhoneNumber</td>
-                                    <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@string.Format("{0:N0} đ", item.Price)</td>
-                                    <td>@item.Status</td>
+
                                     <td>
-                                        <a asp-action="CustomerRenew" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                        <span class="vehicle-plate">
+                                            @item.Vehicle?.LicensePlate
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @item.Vehicle?.VehicleType
+                                    </td>
+
+                                    <td>
+                                        @item.OwnerName
+                                    </td>
+
+                                    <td>
+                                        @item.PhoneNumber
+                                    </td>
+
+                                    <td>
+                                        @item.StartDate.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+                                        @item.EndDate.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            @string.Format("{0:N0} đ", item.Price)
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @if (item.Status == "ConHan")
+                                        {
+                                            <span class="status-badge status-success">
+                                                Còn hạn
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="status-badge status-danger">
+                                                Hết hạn
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="CustomerRenew"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-warning btn-sm">
                                             Gia hạn
                                         </a>
                                     </td>
+
                                 </tr>
                             }
+
                         </tbody>
+
                     </table>
+
                 </div>
             }
 
-            <a asp-controller="Home" asp-action="CustomerDashboard" class="btn btn-secondary mt-3">
-                Quay lại
-            </a>
+            <div class="action-buttons mt-4">
+
+                <a asp-controller="Home"
+                   asp-action="CustomerDashboard"
+                   class="btn btn-secondary">
+                    Quay lại
+                </a>
+
+            </div>
+
         </div>
     </div>
 </div>
